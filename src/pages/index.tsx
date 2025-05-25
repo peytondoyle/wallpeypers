@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import FilterBarDesktop from '../../components/FilterBarDesktop';
 import FilterBarMobile from '../../components/FilterBarMobile';
+import SuggestModal from '../../components/SuggestModal';
 
 export default function HomePage() {
   const [seasonFilter, setSeasonFilter] = useState('All Seasons');
@@ -14,6 +15,7 @@ export default function HomePage() {
   const [peytonOnly, setPeytonOnly] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [showSuggestModal, setShowSuggestModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -91,6 +93,7 @@ export default function HomePage() {
           resetFilters={resetFilters}
           seasons={seasons}
           styles={styles}
+          setShowSuggestModal={setShowSuggestModal}
         />
       ) : (
         <FilterBarMobile
@@ -107,6 +110,7 @@ export default function HomePage() {
           toggleRef={toggleRef}
           seasons={seasons}
           styles={styles}
+          setShowSuggestModal={setShowSuggestModal}
         />
       )}
 
@@ -190,6 +194,10 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      )}
+
+      {showSuggestModal && (
+        <SuggestModal onClose={() => setShowSuggestModal(false)} />
       )}
     </div>
   );

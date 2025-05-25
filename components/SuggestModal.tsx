@@ -11,7 +11,7 @@ export default function SuggestModal({ onClose }: { onClose: () => void }) {
   const handleSubmit = async () => {
     if (!inputValue.trim()) return;
 
-    // Insert into Supabase DB
+    // Step 1: Save to Supabase
     const { error: insertError } = await supabase
       .from('suggestions')
       .insert({ suggestion: inputValue });
@@ -22,18 +22,21 @@ export default function SuggestModal({ onClose }: { onClose: () => void }) {
       return;
     }
 
-    // Call Supabase Edge Function to send email
-    const { error: functionError } = await supabase.functions.invoke('send-suggestion-email', {
-      body: { suggestion: inputValue },
+    // Step 2: Send email via your own Next.js API route
+    const res = await fetch('/api/send-suggestion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ suggestion: inputValue }),
     });
 
-    if (functionError) {
-      console.error('Error triggering email:', functionError.message);
+    if (!res.ok) {
+      const data = await res.json();
+      console.error('Error triggering email:', data.error || 'Unknown error');
       setError('Your suggestion was saved, but we had trouble sending a notification.');
       return;
     }
 
-    // Success
+    // Step 3: Success
     setSubmitted(true);
     setTimeout(() => {
       setInputValue('');
@@ -47,10 +50,7 @@ export default function SuggestModal({ onClose }: { onClose: () => void }) {
       <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm animate-fade-in">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Suggest a Wallpaper Idea</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-black text-xl"
-          >
+          <button onClick={onClose} className="text-gray-500 hover:text-black text-xl">
             ×
           </button>
         </div>

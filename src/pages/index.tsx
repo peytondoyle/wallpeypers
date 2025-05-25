@@ -1,29 +1,32 @@
-import { useState, useMemo } from 'react';
-import wallpapers from '../../data/wallpapers.json';
+import { useState, useMemo, useEffect } from 'react';
+import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
 import Head from 'next/head';
-
-type Wallpaper = {
-  filename: string;
-  season: string;
-  style: string;
-  source: string;
-};
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function HomePage() {
   const [seasonFilter, setSeasonFilter] = useState('All');
   const [styleFilter, setStyleFilter] = useState('All');
   const [peytonOnly, setPeytonOnly] = useState(false);
-  const [selected, setSelected] = useState<Wallpaper | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const seasons = ['All', 'Summer', 'Fall', 'Winter', 'Spring'];
   const styles = useMemo(() => {
     const unique = new Set<string>();
-    wallpapers.forEach((w) => unique.add(w.style));
+    wallpapersData.forEach((w) => unique.add(w.style));
     return ['All', ...Array.from(unique)];
   }, []);
 
-  const filtered = wallpapers.filter((w) => {
+  const filtered = wallpapersData.filter((w) => {
     return (
       (seasonFilter === 'All' || w.season === seasonFilter) &&
       (styleFilter === 'All' || w.style === styleFilter) &&
@@ -34,20 +37,40 @@ export default function HomePage() {
   const minGalleryCount = 5;
   const placeholdersNeeded = Math.max(0, minGalleryCount - filtered.length);
 
+  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
+
+  const resetFilters = () => {
+    setSeasonFilter('All');
+    setStyleFilter('All');
+    setPeytonOnly(false);
+  };
+
   return (
-    <div className="bg-white min-h-screen font-sans text-gray-900">
+    <div className="bg-gradient-to-br from-white to-[#fefaf6] min-h-screen font-sans text-gray-900">
       <Head>
         <title>WALLPEYPERS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <div className="p-4 sm:p-6 max-w-screen-xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center">WALLPEYPERS</h1>
+        <h1 className="text-3xl font-bold mb-2 text-center">WALLPEYPERS</h1>
+        <div className="text-center text-sm text-gray-500 mb-6">Made with 🩵 by Peyton</div>
+      </div>
 
-        {/* Filters */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 px-4">
-          <div className="flex flex-col sm:flex-row items-center gap-3 bg-gray-100 rounded-2xl p-4 w-full sm:w-auto">
-            {/* Season Filter */}
+      {/* Floating Toggle Button */}
+      {isMobile && (
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="fixed top-[88px] left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-1 px-4 py-2 text-sm border border-gray-300 rounded-full bg-white shadow hover:bg-gray-100"
+        >
+          Filters {showFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+      )}
+
+      {/* Filters Bar */}
+      {(showFilters || !isMobile) && (
+        <div className="fixed top-2 left-1/2 transform -translate-x-1/2 z-40 sm:hidden">
+          <div className="flex flex-col sm:flex-row items-center gap-3 bg-white/70 backdrop-blur-md rounded-2xl shadow p-4 w-full sm:w-auto">
             <div className="relative w-full sm:w-auto">
               <label className="sr-only" htmlFor="seasonFilter">Season</label>
               <select
@@ -60,19 +83,7 @@ export default function HomePage() {
                   <option key={s}>{s}</option>
                 ))}
               </select>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
             </div>
-
-            {/* Style Filter */}
             <div className="relative w-full sm:w-auto">
               <label className="sr-only" htmlFor="styleFilter">Style</label>
               <select
@@ -85,19 +96,7 @@ export default function HomePage() {
                   <option key={s}>{s}</option>
                 ))}
               </select>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
             </div>
-
-            {/* Toggle */}
             <label className="flex items-center gap-2 bg-white border border-gray-300 text-sm rounded-full pl-4 pr-4 py-2 cursor-pointer select-none w-full sm:w-auto">
               <input
                 type="checkbox"
@@ -107,42 +106,48 @@ export default function HomePage() {
               />
               Generated by Peyton
             </label>
+            <button
+              onClick={resetFilters}
+              className="text-sm text-gray-600 border border-gray-300 rounded-full px-4 py-2 hover:bg-gray-100"
+            >
+              Reset
+            </button>
           </div>
         </div>
+      )}
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] justify-start gap-4 min-h-[400px] max-w-screen-2xl mx-auto px-4">
-          {filtered.map((wallpaper, index) => (
-            <div
-              key={index}
-              onClick={() => setSelected(wallpaper)}
-              className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer bg-gray-100"
-            >
-              <Image
-                src={`/wallpapers/thumbs/${wallpaper.filename}`}
-                alt={wallpaper.filename}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                priority
-              />
-            </div>
-          ))}
-
-          {Array.from({ length: placeholdersNeeded }).map((_, index) => (
-            <div
-              key={`placeholder-${index}`}
-              className="aspect-[9/16] rounded-xl bg-transparent invisible"
+      {/* Gallery Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] justify-start gap-4 min-h-[400px] max-w-screen-2xl mx-auto px-4 mt-8">
+        {filtered.map((wallpaper, index) => (
+          <div
+            key={index}
+            onClick={() => setSelectedIndex(index)}
+            className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100"
+          >
+            <Image
+              src={wallpaper.url}
+              alt={wallpaper.filename}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              priority
             />
-          ))}
-        </div>
+          </div>
+        ))}
+
+        {Array.from({ length: placeholdersNeeded }).map((_, index) => (
+          <div
+            key={`placeholder-${index}`}
+            className="aspect-[9/16] rounded-xl bg-transparent invisible"
+          />
+        ))}
       </div>
 
       {/* Modal Overlay */}
       {selected && (
         <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
-          onClick={() => setSelected(null)}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedIndex(null)}
         >
           <div
             className="bg-white rounded-xl w-full max-w-[240px] sm:max-w-[260px] shadow-2xl relative flex flex-col items-center"
@@ -150,16 +155,32 @@ export default function HomePage() {
           >
             <div className="relative w-full">
               <button
-                onClick={() => setSelected(null)}
+                onClick={() => setSelectedIndex(null)}
                 className="absolute top-2 right-2 z-10"
               >
-                <span className="w-6 h-6 bg-gray-100 text-gray-700 rounded-full shadow-sm flex items-center justify-center text-base font-medium hover:bg-gray-200">
+                <span className="w-6 h-6 bg-white text-gray-700 rounded-full shadow-sm flex items-center justify-center text-base font-medium hover:bg-gray-100 leading-none">
                   ×
                 </span>
               </button>
+              {selectedIndex !== null && selectedIndex > 0 && (
+                <button
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
+                  onClick={() => setSelectedIndex((prev) => (prev ?? 1) - 1)}
+                >
+                  <ChevronLeft className="w-6 h-6 text-gray-600 bg-white rounded-full shadow hover:bg-gray-100" />
+                </button>
+              )}
+              {selectedIndex !== null && selectedIndex < filtered.length - 1 && (
+                <button
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
+                  onClick={() => setSelectedIndex((prev) => (prev ?? 0) + 1)}
+                >
+                  <ChevronRight className="w-6 h-6 text-gray-600 bg-white rounded-full shadow hover:bg-gray-100" />
+                </button>
+              )}
               <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-gray-200">
                 <Image
-                  src={`/wallpapers/full/${selected.filename}`}
+                  src={selected.url}
                   alt={selected.filename}
                   fill
                   className="absolute inset-0 object-cover"
@@ -168,9 +189,9 @@ export default function HomePage() {
             </div>
             <div className="py-4">
               <a
-                href={`/wallpapers/full/${selected.filename}`}
+                href={selected.url}
                 download
-                className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 text-sm"
+                className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 text-sm transition"
               >
                 Download
               </a>

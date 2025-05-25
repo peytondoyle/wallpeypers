@@ -18,5 +18,4 @@ export type FilterBarMobileProps = FilterBarProps & {
   setShowMobileFilters: (val: boolean) => void;
   toggleRef: RefObject<HTMLButtonElement | null>;
   filterRef: RefObject<HTMLDivElement | null>;
-  setShowSuggestModal: (val: boolean) => void;
 };

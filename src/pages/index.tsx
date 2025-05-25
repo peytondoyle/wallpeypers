@@ -1,4 +1,3 @@
-// index.tsx
 'use client';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
@@ -10,8 +9,8 @@ import FilterBarDesktop from '../../components/FilterBarDesktop';
 import FilterBarMobile from '../../components/FilterBarMobile';
 
 export default function HomePage() {
-  const [seasonFilter, setSeasonFilter] = useState('All');
-  const [styleFilter, setStyleFilter] = useState('All');
+  const [seasonFilter, setSeasonFilter] = useState('All Seasons');
+  const [styleFilter, setStyleFilter] = useState('All Styles');
   const [peytonOnly, setPeytonOnly] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -28,12 +27,14 @@ export default function HomePage() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
       if (
         showMobileFilters &&
-        filterRef.current &&
-        toggleRef.current &&
-        !filterRef.current.contains(event.target as Node) &&
-        !toggleRef.current.contains(event.target as Node)
+        filterRef.current instanceof HTMLElement &&
+        toggleRef.current instanceof HTMLElement &&
+        !filterRef.current.contains(target) &&
+        !toggleRef.current.contains(target)
       ) {
         setShowMobileFilters(false);
       }
@@ -42,17 +43,17 @@ export default function HomePage() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showMobileFilters]);
 
-  const seasons = ['All', 'Summer', 'Fall', 'Winter', 'Spring'];
+  const seasons = ['All Seasons', 'Summer', 'Fall', 'Winter', 'Spring'];
   const styles = useMemo(() => {
     const unique = new Set<string>();
     wallpapersData.forEach((w) => unique.add(w.style));
-    return ['All', ...Array.from(unique)];
+    return ['All Styles', ...Array.from(unique)];
   }, []);
 
   const filtered = wallpapersData.filter((w) => {
     return (
-      (seasonFilter === 'All' || w.season === seasonFilter) &&
-      (styleFilter === 'All' || w.style === styleFilter) &&
+      (seasonFilter === 'All Seasons' || w.season === seasonFilter) &&
+      (styleFilter === 'All Styles' || w.style === styleFilter) &&
       (!peytonOnly || w.source.toLowerCase() === 'peyton')
     );
   });
@@ -62,8 +63,8 @@ export default function HomePage() {
   const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
 
   const resetFilters = () => {
-    setSeasonFilter('All');
-    setStyleFilter('All');
+    setSeasonFilter('All Seasons');
+    setStyleFilter('All Styles');
     setPeytonOnly(false);
   };
 

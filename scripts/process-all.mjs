@@ -48,8 +48,9 @@ const getImageCreatedDate = async (filePath) => {
   }
 };
 
-const getImageDescription = async (buffer) => {
+const getImageDescription = async (buffer, filename) => {
   const base64Image = buffer.toString('base64');
+
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
     messages: [
@@ -58,22 +59,38 @@ const getImageDescription = async (buffer) => {
         content: [
           {
             type: 'text',
-            text: 'Describe this image in 5 words or less. Then, based strictly on visual cues (e.g., environment, lighting, weather, foliage, color palette, activities), assign one season: Spring, Summer, Fall, or Winter. Do NOT use "Any" — choose the best seasonal fit, even if it is not obvious. Finally, suggest the best style category (choose one from: Illustration, Kawaii, Claymation & 3D, Cartoonish, Pixel Art & Retro, Minimalist, Photorealistic, Abstract & Graphic).',
+            text: `
+Describe this image in 5 words or less. Then, based strictly on visual cues (e.g., environment, lighting, weather, foliage, color palette, activities), assign one season: Spring, Summer, Fall, or Winter. Do NOT use "Any" — choose the best seasonal fit, even if it's not obvious. Then, suggest the best style category (choose one from: Illustration, Kawaii, Claymation & 3D, Cartoonish, Pixel Art & Retro, Minimalist, Photorealistic, Abstract & Graphic). Then, list 5–10 descriptive tags in lowercase, comma-separated format (themes, objects, colors, mood, subjects, etc.).
+
+Output format:
+Line 1: Short description  
+Line 2: Season  
+Line 3: Style  
+Line 4: tag1, tag2, tag3, ...
+`,
           },
-          { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${base64Image}` } },
+          {
+            type: 'image_url',
+            image_url: { url: `data:image/jpeg;base64,${base64Image}` },
+          },
         ],
       },
     ],
-    max_tokens: 150,
+    max_tokens: 250,
   });
 
   const text = response.choices[0].message.content;
-  const [descLine, seasonLine, styleLine] = text.split('\n').map((x) => x.trim());
+  console.log(`🧠 GPT Output for ${filename}:\n${text}\n---`);
+
+  const lines = text.split('\n').map(l => l.trim());
 
   return {
-    name: toKebabCase(descLine),
-    season: capitalize(seasonLine.match(/spring|summer|fall|autumn|winter/i)?.[0] || 'Any'),
-    style: simplifyStyle(styleLine),
+    name: toKebabCase(lines[0]),
+    season: capitalize(lines[1]?.match(/spring|summer|fall|autumn|winter/i)?.[0] || 'Any'),
+    style: simplifyStyle(lines[2]),
+    tags: (
+      lines.find(l => l.includes(',') && !l.toLowerCase().includes('style')) || ''
+    ).split(',').map(t => t.trim().toLowerCase()).filter(Boolean),
   };
 };
 
@@ -112,7 +129,7 @@ const run = async () => {
 
     const sourceLabel = file.toLowerCase().startsWith('peyyyyyy') ? 'Peyton' : 'Other';
     const created = await getImageCreatedDate(inputPath);
-    const { name, season, style } = await getImageDescription(buffer);
+    const { name, season, style, tags } = await getImageDescription(buffer, file);
     const filename = getUniqueFilename(name, ext, processedFilenames);
 
     // Upload to Blob
@@ -126,6 +143,7 @@ const run = async () => {
       source: sourceLabel,
       created: new Date(created).toISOString(),
       url: blob.url,
+      tags,
     });
 
     // Generate thumbnail
@@ -134,7 +152,7 @@ const run = async () => {
 
     // Cleanup
     fs.unlinkSync(inputPath);
-    console.log(`✅ Processed: ${filename} [${season}, ${style}]`);
+    console.log(`✅ Processed: ${filename} [${season}, ${style}] → tags: ${tags.join(', ')}`);
   }
 
   fs.writeFileSync(wallpapersJsonPath, JSON.stringify(existingWallpapers, null, 2));

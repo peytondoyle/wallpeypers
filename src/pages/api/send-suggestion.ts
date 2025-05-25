@@ -1,45 +1,51 @@
-// /src/pages/api/send-suggestion-email.ts
+// /src/pages/api/send-suggestion.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+type Data = {
+  success: boolean;
+  error?: string;
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
   const { suggestion } = req.body;
+
+  if (!suggestion || typeof suggestion !== 'string') {
+    return res.status(400).json({ success: false, error: 'Invalid suggestion' });
+  }
+
   const resendKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.SUGGESTION_TO_EMAIL || 'you@example.com';
+  const toEmail = process.env.SUGGESTION_TO_EMAIL;
 
   if (!resendKey || !toEmail) {
-    console.error('Missing RESEND_API_KEY or SUGGESTION_TO_EMAIL in environment');
-    return res.status(500).json({ success: false, error: 'Missing keys' });
+    return res.status(500).json({ success: false, error: 'Missing env vars' });
   }
 
-  try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${resendKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'WALLPEYPERS <hello@wallpeypers.com>',
-        to: toEmail,
-        subject: '🖼️ New Wallpaper Suggestion',
-        html: `<p>${suggestion}</p>`,
-      }),
-    });
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${resendKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'WALLPEYPERS <onboarding@resend.dev>', // or hello@wallpeypers.com if verified
+      to: toEmail,
+      subject: '🖼️ New Wallpaper Suggestion',
+      html: `<p>${suggestion}</p>`,
+    }),
+  });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Resend error:', error);
-      return res.status(500).json({ success: false, error });
-    }
-
-    return res.status(200).json({ success: true });
-  } catch (err: any) {
-    console.error('Server error:', err);
-    return res.status(500).json({ success: false, error: 'Server error' });
+  if (!response.ok) {
+    const error = await response.text();
+    return res.status(500).json({ success: false, error });
   }
+
+  return res.status(200).json({ success: true });
 }

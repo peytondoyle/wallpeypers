@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="icon" href="/favicon.ico?v=2" />
         <meta property="og:title" content="WALLPEYPERS" />
         <meta property="og:description" content="Download dreamy seasonal wallpapers 🌅" />
         <meta property="og:image" content="https://wallpeypers.vercel.app/WALLPEYPERS.png" />

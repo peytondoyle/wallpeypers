@@ -14,7 +14,7 @@ export type FilterBarProps = {
 };
 
 export type FilterBarMobileProps = FilterBarProps & {
-  showMobileFilters: boolean;
+  showMobileFilters: boolean; // <-- THIS WAS MISSING
   setShowMobileFilters: (val: boolean) => void;
   toggleRef: RefObject<HTMLButtonElement | null>;
   filterRef: RefObject<HTMLDivElement | null>;

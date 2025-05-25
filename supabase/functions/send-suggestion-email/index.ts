@@ -18,7 +18,7 @@ serve(async (req: Request): Promise<Response> => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'WALLPEYPERS <hello@wallpeypers.com>', // Change to a verified sender if needed
+      from: 'WALLPEYPERS <onboarding@resend.dev>', // Change to a verified sender if needed
       to: toEmail,
       subject: '🧠 New Wallpaper Suggestion',
       html: `<p>${suggestion}</p>`,

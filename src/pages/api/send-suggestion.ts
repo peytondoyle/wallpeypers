@@ -1,26 +1,34 @@
+// /src/pages/api/send-suggestion-email.ts
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { suggestion } = JSON.parse(req.body);
+  const { suggestion } = req.body;
+  const resendKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.SUGGESTION_TO_EMAIL;
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!resendKey || !toEmail) {
+    return res.status(500).json({ success: false, error: 'Missing keys' });
+  }
 
-  const fnUrl = `${supabaseUrl}/functions/v1/send-suggestion-email`;
-
-  const response = await fetch(fnUrl, {
+  const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
+      'Authorization': `Bearer ${resendKey}`,
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${anonKey}`,
     },
-    body: JSON.stringify({ suggestion }),
+    body: JSON.stringify({
+      from: 'WALLPEYPERS <hello@wallpeypers.com>',
+      to: toEmail,
+      subject: '🖼️ New Wallpaper Suggestion',
+      html: `<p>${suggestion}</p>`,
+    }),
   });
 
-  if (response.ok) {
-    res.status(200).json({ success: true });
-  } else {
+  if (!response.ok) {
     const error = await response.text();
-    res.status(500).json({ success: false, error });
+    return res.status(500).json({ success: false, error });
   }
+
+  return res.status(200).json({ success: true });
 }

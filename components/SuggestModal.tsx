@@ -1,4 +1,3 @@
-// components/SuggestModal.tsx
 'use client';
 
 import { useState } from 'react';
@@ -12,14 +11,29 @@ export default function SuggestModal({ onClose }: { onClose: () => void }) {
   const handleSubmit = async () => {
     if (!inputValue.trim()) return;
 
-    const { error } = await supabase.from('suggestions').insert({ suggestion: inputValue });
+    // Insert into Supabase DB
+    const { error: insertError } = await supabase
+      .from('suggestions')
+      .insert({ suggestion: inputValue });
 
-    if (error) {
-      console.error('Error submitting suggestion:', error.message);
-      setError('There was an issue submitting your suggestion.');
+    if (insertError) {
+      console.error('Error submitting suggestion:', insertError.message);
+      setError('There was an issue saving your suggestion.');
       return;
     }
 
+    // Call Supabase Edge Function to send email
+    const { error: functionError } = await supabase.functions.invoke('send-suggestion-email', {
+      body: { suggestion: inputValue },
+    });
+
+    if (functionError) {
+      console.error('Error triggering email:', functionError.message);
+      setError('Your suggestion was saved, but we had trouble sending a notification.');
+      return;
+    }
+
+    // Success
     setSubmitted(true);
     setTimeout(() => {
       setInputValue('');
@@ -33,7 +47,12 @@ export default function SuggestModal({ onClose }: { onClose: () => void }) {
       <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm animate-fade-in">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Suggest a Wallpaper Idea</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-black text-xl">×</button>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-black text-xl"
+          >
+            ×
+          </button>
         </div>
 
         {!submitted ? (

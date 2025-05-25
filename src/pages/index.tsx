@@ -30,11 +30,10 @@ export default function HomePage() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-
       if (
         showMobileFilters &&
-        filterRef.current instanceof HTMLElement &&
-        toggleRef.current instanceof HTMLElement &&
+        filterRef.current &&
+        toggleRef.current &&
         !filterRef.current.contains(target) &&
         !toggleRef.current.contains(target)
       ) {
@@ -52,23 +51,31 @@ export default function HomePage() {
     return ['All Styles', ...Array.from(unique)];
   }, []);
 
-  const filtered = wallpapersData.filter((w) => {
-    return (
-      (seasonFilter === 'All Seasons' || w.season === seasonFilter) &&
-      (styleFilter === 'All Styles' || w.style === styleFilter) &&
-      (!peytonOnly || w.source.toLowerCase() === 'peyton')
+  const sortedWallpapers = useMemo(() => {
+    return [...wallpapersData].sort((a, b) =>
+      new Date(b.created).getTime() - new Date(a.created).getTime()
     );
-  });
+  }, []);
 
-  const minGalleryCount = 5;
-  const placeholdersNeeded = Math.max(0, minGalleryCount - filtered.length);
-  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
+  const filtered = useMemo(() => {
+    return sortedWallpapers.filter((w) => {
+      return (
+        (seasonFilter === 'All Seasons' || w.season === seasonFilter) &&
+        (styleFilter === 'All Styles' || w.style === styleFilter) &&
+        (!peytonOnly || w.source.toLowerCase() === 'peyton')
+      );
+    });
+  }, [sortedWallpapers, seasonFilter, styleFilter, peytonOnly]);
 
   const resetFilters = () => {
     setSeasonFilter('All Seasons');
     setStyleFilter('All Styles');
     setPeytonOnly(false);
   };
+
+  const minGalleryCount = 5;
+  const placeholdersNeeded = Math.max(0, minGalleryCount - filtered.length);
+  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
 
   return (
     <div className="bg-gradient-to-br from-[#fdfcfb] to-[#fef6ec] min-h-screen font-sans text-gray-900 pb-10">
@@ -107,6 +114,10 @@ export default function HomePage() {
           seasons={seasons}
           styles={styles}
           setShowSuggestModal={setShowSuggestModal}
+          showMobileFilters={showMobileFilters}
+          setShowMobileFilters={setShowMobileFilters}
+          filterRef={filterRef}
+          toggleRef={toggleRef}
         />
       )}
 

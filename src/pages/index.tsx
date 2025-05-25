@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
@@ -9,9 +11,10 @@ export default function HomePage() {
   const [styleFilter, setStyleFilter] = useState('All');
   const [peytonOnly, setPeytonOnly] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const filtersRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -21,18 +24,20 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (filtersRef.current && !filtersRef.current.contains(event.target as Node)) {
-        setShowFilters(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        filterRef.current &&
+        !filterRef.current.contains(event.target as Node) &&
+        !toggleRef.current?.contains(event.target as Node)
+      ) {
+        setShowMobileFilters(false);
       }
-    }
-    if (showFilters) {
+    };
+    if (showMobileFilters) {
       document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showFilters]);
+  }, [showMobileFilters]);
 
   const seasons = ['All', 'Summer', 'Fall', 'Winter', 'Spring'];
   const styles = useMemo(() => {
@@ -61,115 +66,51 @@ export default function HomePage() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#fdfcfb] to-[#fefaf6] min-h-screen font-sans text-gray-900">
+    <div className="bg-gradient-to-br from-[#fdfcfb] to-[#fef6ec] min-h-screen font-sans text-gray-900 pb-10">
       <Head>
         <title>WALLPEYPERS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <div className="p-4 sm:p-6 max-w-screen-xl mx-auto text-center">
-        <h1 className="text-3xl font-bold mb-1">WALLPEYPERS</h1>
+        <h1 className="text-3xl font-bold mb-2">WALLPEYPERS</h1>
         <div className="text-sm text-gray-500">Made with 🩵 by Peyton</div>
       </div>
 
-      {/* Floating Filter Toggle */}
-      {isMobile && (
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-1 px-4 py-2 text-sm border border-gray-300 rounded-full bg-white shadow hover:bg-gray-100"
-        >
-          Filters {showFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-        </button>
-      )}
-
-      {/* Floating Mobile Filter Panel */}
-      {isMobile && showFilters && (
-        <div
-          ref={filtersRef}
-          className="fixed bottom-[60px] right-4 z-50 bg-white rounded-xl shadow-lg p-4 flex flex-col gap-3 w-[90vw] max-w-xs transition duration-200 ease-in-out transform scale-100"
-        >
-          {[{
-            id: 'seasonFilter',
-            value: seasonFilter,
-            setter: setSeasonFilter,
-            options: seasons
-          }, {
-            id: 'styleFilter',
-            value: styleFilter,
-            setter: setStyleFilter,
-            options: styles
-          }].map(({ id, value, setter, options }) => (
-            <div key={id} className="relative">
+      {/* Desktop Filter Bar */}
+      {!isMobile && (
+        <div className="sticky top-2 z-40 flex justify-center">
+          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md rounded-full shadow p-3 border border-gray-200">
+            <div className="relative">
               <select
-                id={id}
-                value={value}
-                onChange={(e) => setter(e.target.value)}
-                className="appearance-none w-full border border-gray-300 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+                value={seasonFilter}
+                onChange={(e) => setSeasonFilter(e.target.value)}
+                className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
               >
-                {options.map((s) => (
+                {seasons.map((s) => (
                   <option key={s}>{s}</option>
                 ))}
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
-                <ChevronDown className="w-4 h-4" />
-              </div>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
             </div>
-          ))}
-          <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={peytonOnly}
-              onChange={() => setPeytonOnly(!peytonOnly)}
-              className="form-checkbox h-4 w-4 text-black rounded focus:ring-0 focus:outline-none"
-            />
-            Generated by Peyton
-          </label>
-          <button
-            onClick={resetFilters}
-            className="border border-gray-300 rounded-full px-4 py-2 text-sm hover:bg-gray-100"
-          >
-            Reset
-          </button>
-        </div>
-      )}
-
-      {/* Desktop Filter Bar */}
-      {!isMobile && (
-        <div className="sticky top-2 z-40 flex justify-center mb-6">
-          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md rounded-2xl shadow p-4">
-            {[{
-              id: 'seasonFilter',
-              value: seasonFilter,
-              setter: setSeasonFilter,
-              options: seasons
-            }, {
-              id: 'styleFilter',
-              value: styleFilter,
-              setter: setStyleFilter,
-              options: styles
-            }].map(({ id, value, setter, options }) => (
-              <div key={id} className="relative">
-                <select
-                  id={id}
-                  value={value}
-                  onChange={(e) => setter(e.target.value)}
-                  className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                >
-                  {options.map((s) => (
-                    <option key={s}>{s}</option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
-                  <ChevronDown className="w-4 h-4" />
-                </div>
-              </div>
-            ))}
-            <label className="flex items-center gap-2 bg-white border border-gray-300 text-sm rounded-full pl-4 pr-4 py-2 cursor-pointer select-none">
+            <div className="relative">
+              <select
+                value={styleFilter}
+                onChange={(e) => setStyleFilter(e.target.value)}
+                className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              >
+                {styles.map((s) => (
+                  <option key={s}>{s}</option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+            </div>
+            <label className="flex items-center gap-2 text-sm bg-white border border-gray-300 rounded-full pl-4 pr-4 py-2 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={peytonOnly}
                 onChange={() => setPeytonOnly(!peytonOnly)}
-                className="form-checkbox h-4 w-4 text-black rounded focus:ring-0 focus:outline-none"
+                className="form-checkbox h-4 w-4 text-black rounded"
               />
               Generated by Peyton
             </label>
@@ -183,8 +124,69 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Floating Filters Toggle (Mobile) */}
+      {isMobile && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <button
+            ref={toggleRef}
+            onClick={() => setShowMobileFilters((prev) => !prev)}
+            className="inline-flex items-center gap-1 px-4 py-2 text-sm border border-gray-300 rounded-full bg-white shadow hover:bg-gray-100 transition"
+          >
+            Filters
+            {showMobileFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </button>
+
+          {showMobileFilters && (
+            <div
+              ref={filterRef}
+              className="absolute bottom-14 right-0 z-50 bg-white rounded-2xl shadow-xl p-4 w-[90vw] max-w-xs transition-all duration-200 border border-gray-200"
+            >
+              <div className="mb-3 relative">
+                <select
+                  value={seasonFilter}
+                  onChange={(e) => setSeasonFilter(e.target.value)}
+                  className="appearance-none w-full bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  {seasons.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+              </div>
+              <div className="mb-3 relative">
+                <select
+                  value={styleFilter}
+                  onChange={(e) => setStyleFilter(e.target.value)}
+                  className="appearance-none w-full bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  {styles.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+              </div>
+              <label className="flex items-center gap-2 mb-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={peytonOnly}
+                  onChange={() => setPeytonOnly(!peytonOnly)}
+                  className="form-checkbox h-4 w-4 text-black rounded"
+                />
+                Generated by Peyton
+              </label>
+              <button
+                onClick={resetFilters}
+                className="text-sm text-gray-600 border border-gray-300 rounded-full px-4 py-2 w-full hover:bg-gray-100"
+              >
+                Reset
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Gallery Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] justify-start gap-4 min-h-[400px] max-w-screen-2xl mx-auto px-4 mt-8">
+      <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] justify-start gap-4 min-h-[400px] max-w-screen-2xl mx-auto px-4 pt-10">
         {filtered.map((wallpaper, index) => (
           <div
             key={index}
@@ -201,7 +203,6 @@ export default function HomePage() {
             />
           </div>
         ))}
-
         {Array.from({ length: placeholdersNeeded }).map((_, index) => (
           <div
             key={`placeholder-${index}`}

@@ -58,7 +58,7 @@ const getImageDescription = async (buffer) => {
         content: [
           {
             type: 'text',
-            text: 'Describe this image in 5 words or less, then identify the most fitting season (Spring, Summer, Fall, or Winter) based on visual cues like weather, foliage, colors, or activities. Be as discerning as possible — only use "Any" if truly season-neutral. Then suggest the best style category (choose one from: Illustration, Kawaii, Claymation & 3D, Cartoonish, Pixel Art & Retro, Minimalist, Photorealistic, Abstract & Graphic).',
+            text: 'Describe this image in 5 words or less. Then, based strictly on visual cues (e.g., environment, lighting, weather, foliage, color palette, activities), assign one season: Spring, Summer, Fall, or Winter. Do NOT use "Any" — choose the best seasonal fit, even if it is not obvious. Finally, suggest the best style category (choose one from: Illustration, Kawaii, Claymation & 3D, Cartoonish, Pixel Art & Retro, Minimalist, Photorealistic, Abstract & Graphic).',
           },
           { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${base64Image}` } },
         ],

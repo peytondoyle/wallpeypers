@@ -60,14 +60,21 @@ const getImageDescription = async (buffer, filename) => {
           {
             type: 'text',
             text: `
-Describe this image in 5 words or less. Then, based strictly on visual cues (e.g., environment, lighting, weather, foliage, color palette, activities), assign one season: Spring, Summer, Fall, or Winter. Do NOT use "Any" — choose the best seasonal fit, even if it's not obvious. Then, suggest the best style category (choose one from: Illustration, Kawaii, Claymation & 3D, Cartoonish, Pixel Art & Retro, Minimalist, Photorealistic, Abstract & Graphic). Then, list 5–10 descriptive tags in lowercase, comma-separated format (themes, objects, colors, mood, subjects, etc.).
+              Describe this image in 5 words or less.
 
-Output format:
-Line 1: Short description  
-Line 2: Season  
-Line 3: Style  
-Line 4: tag1, tag2, tag3, ...
-`,
+              Then, **confidently** assign one season based only on visual cues (environment, lighting, weather, color palette, etc.). Choose ONLY from: **Spring, Summer, Fall, or Winter**. Do **not** use "Any" or "Unknown". If unsure, still pick the best fit — **never skip**.
+
+              Next, suggest the most fitting style from one of:
+              Illustration, Kawaii, Claymation & 3D, Cartoonish, Pixel Art & Retro, Minimalist, Photorealistic, Abstract & Graphic.
+
+              Finally, list 5–10 lowercase, comma-separated descriptive tags (subjects, colors, mood, setting, etc.).
+
+              Your response should be exactly 4 lines:
+              Line 1: Short description  
+              Line 2: Season  
+              Line 3: Style  
+              Line 4: tag1, tag2, tag3, ...
+              `,
           },
           {
             type: 'image_url',
@@ -87,7 +94,7 @@ Line 4: tag1, tag2, tag3, ...
   return {
     name: toKebabCase(lines[0]),
     season: capitalize(lines[1]?.match(/spring|summer|fall|autumn|winter/i)?.[0] || 'Any'),
-    style: simplifyStyle(lines[2]),
+    style: simplifyStyle(lines[2] || 'Illustration'),
     tags: (
       lines.find(l => l.includes(',') && !l.toLowerCase().includes('style')) || ''
     ).split(',').map(t => t.trim().toLowerCase()).filter(Boolean),
@@ -133,7 +140,10 @@ const run = async () => {
     const filename = getUniqueFilename(name, ext, processedFilenames);
 
     // Upload to Blob
-    const blob = await put(filename, buffer, { access: 'public' });
+    const blob = await put(filename, buffer, {
+      access: 'public',
+      addRandomSuffix: true, // Guarantees no overwrite
+    });
 
     // Update JSON
     existingWallpapers.push({
@@ -152,7 +162,7 @@ const run = async () => {
 
     // Cleanup
     fs.unlinkSync(inputPath);
-    console.log(`✅ Processed: ${filename} [${season}, ${style}] → tags: ${tags.join(', ')}`);
+    console.log(`✅ Processed: ${filename} [${season || 'Unknown'}, ${style || 'Illustration'}] → tags: ${tags.join(', ')}`);
   }
 
   fs.writeFileSync(wallpapersJsonPath, JSON.stringify(existingWallpapers, null, 2));

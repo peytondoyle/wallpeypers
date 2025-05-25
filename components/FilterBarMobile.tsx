@@ -3,7 +3,7 @@
 import { ChevronDown } from 'lucide-react';
 import type { FilterBarProps } from '../types/filters';
 
-type FilterBarMobileProps = Omit<FilterBarProps, 'showMobileFilters' | 'setShowMobileFilters' | 'toggleRef' | 'filterRef'>;
+type LocalMobileProps = FilterBarProps;
 
 export default function FilterBarMobile({
   seasonFilter,
@@ -16,9 +16,13 @@ export default function FilterBarMobile({
   seasons,
   styles,
   setShowSuggestModal,
-}: FilterBarMobileProps) {
+  showMobileFilters,
+  setShowMobileFilters,
+  filterRef,
+  toggleRef,
+}: LocalMobileProps) {
   return (
-    <div className="sticky top-2 z-40 flex justify-center px-4">
+    <div ref={filterRef} className="sticky top-2 z-40 flex justify-center px-4">
       <div className="flex flex-col gap-2 bg-white/80 backdrop-blur-md rounded-2xl shadow p-4 border border-gray-200 w-full max-w-md">
         {/* Dropdowns Row */}
         <div className="flex gap-2">

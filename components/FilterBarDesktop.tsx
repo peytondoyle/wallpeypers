@@ -1,272 +1,72 @@
+// components/FilterBarDesktop.tsx
 'use client';
 
-import { useState, useMemo, useEffect, useRef } from 'react';
-import wallpapersData from '../../data/wallpapers.json';
-import Image from 'next/image';
-import Head from 'next/head';
-import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
-export default function HomePage() {
-  const [seasonFilter, setSeasonFilter] = useState('All');
-  const [styleFilter, setStyleFilter] = useState('All');
-  const [peytonOnly, setPeytonOnly] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const filterRef = useRef<HTMLDivElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 640);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        filterRef.current &&
-        !filterRef.current.contains(event.target as Node) &&
-        !toggleRef.current?.contains(event.target as Node)
-      ) {
-        setShowMobileFilters(false);
-      }
-    };
-    if (showMobileFilters) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showMobileFilters]);
-
-  const seasons = ['All', 'Summer', 'Fall', 'Winter', 'Spring'];
-  const styles = useMemo(() => {
-    const unique = new Set<string>();
-    wallpapersData.forEach((w) => unique.add(w.style));
-    return ['All', ...Array.from(unique)];
-  }, []);
-
-  const filtered = wallpapersData.filter((w) => {
-    return (
-      (seasonFilter === 'All' || w.season === seasonFilter) &&
-      (styleFilter === 'All' || w.style === styleFilter) &&
-      (!peytonOnly || w.source.toLowerCase() === 'peyton')
-    );
-  });
-
-  const minGalleryCount = 5;
-  const placeholdersNeeded = Math.max(0, minGalleryCount - filtered.length);
-
-  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
-
-  const resetFilters = () => {
-    setSeasonFilter('All');
-    setStyleFilter('All');
-    setPeytonOnly(false);
-  };
-
+export default function FilterBarDesktop({
+  seasonFilter,
+  styleFilter,
+  peytonOnly,
+  setSeasonFilter,
+  setStyleFilter,
+  setPeytonOnly,
+  resetFilters,
+  seasons,
+  styles,
+}: {
+  seasonFilter: string;
+  styleFilter: string;
+  peytonOnly: boolean;
+  setSeasonFilter: (val: string) => void;
+  setStyleFilter: (val: string) => void;
+  setPeytonOnly: (val: boolean) => void;
+  resetFilters: () => void;
+  seasons: string[];
+  styles: string[];
+}) {
   return (
-    <div className="bg-gradient-to-br from-[#fdfcfb] to-[#fef6ec] min-h-screen font-sans text-gray-900 pb-10">
-      <Head>
-        <title>WALLPEYPERS</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-
-      <div className="p-4 sm:p-6 max-w-screen-xl mx-auto text-center">
-        <h1 className="text-3xl font-bold mb-2">WALLPEYPERS</h1>
-        <div className="text-sm text-gray-500">Made with 🩵 by Peyton</div>
-      </div>
-
-      {/* Desktop Filter Bar */}
-      {!isMobile && (
-        <div className="sticky top-2 z-40 flex justify-center">
-          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md rounded-full shadow p-3 border border-gray-200">
-            <div className="relative">
-              <select
-                value={seasonFilter}
-                onChange={(e) => setSeasonFilter(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
-              >
-                {seasons.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-            </div>
-            <div className="relative">
-              <select
-                value={styleFilter}
-                onChange={(e) => setStyleFilter(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
-              >
-                {styles.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-            </div>
-            <label className="flex items-center gap-2 text-sm bg-white border border-gray-300 rounded-full pl-4 pr-4 py-2 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={peytonOnly}
-                onChange={() => setPeytonOnly(!peytonOnly)}
-                className="form-checkbox h-4 w-4 text-black rounded"
-              />
-              Generated by Peyton
-            </label>
-            <button
-              onClick={resetFilters}
-              className="text-sm text-gray-600 border border-gray-300 rounded-full px-4 py-2 hover:bg-gray-100"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Floating Filters Toggle (Mobile) */}
-      {isMobile && (
-        <div className="fixed bottom-4 right-4 z-50">
-          <button
-            ref={toggleRef}
-            onClick={() => setShowMobileFilters((prev) => !prev)}
-            className="inline-flex items-center gap-1 px-4 py-2 text-sm border border-gray-300 rounded-full bg-white shadow hover:bg-gray-100 transition"
+    <div className="sticky top-2 z-40 flex justify-center">
+      <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md rounded-full shadow p-3 border border-gray-200">
+        <div className="relative">
+          <select
+            value={seasonFilter}
+            onChange={(e) => setSeasonFilter(e.target.value)}
+            className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
-            Filters
-            {showMobileFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-          </button>
-
-          {showMobileFilters && (
-            <div
-              ref={filterRef}
-              className="absolute bottom-14 right-0 z-50 bg-white rounded-2xl shadow-xl p-4 w-[90vw] max-w-xs transition-all duration-200 border border-gray-200"
-            >
-              <div className="mb-3 relative">
-                <select
-                  value={seasonFilter}
-                  onChange={(e) => setSeasonFilter(e.target.value)}
-                  className="appearance-none w-full bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                >
-                  {seasons.map((s) => (
-                    <option key={s}>{s}</option>
-                  ))}
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-              </div>
-              <div className="mb-3 relative">
-                <select
-                  value={styleFilter}
-                  onChange={(e) => setStyleFilter(e.target.value)}
-                  className="appearance-none w-full bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                >
-                  {styles.map((s) => (
-                    <option key={s}>{s}</option>
-                  ))}
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-              </div>
-              <label className="flex items-center gap-2 mb-3 text-sm">
-                <input
-                  type="checkbox"
-                  checked={peytonOnly}
-                  onChange={() => setPeytonOnly(!peytonOnly)}
-                  className="form-checkbox h-4 w-4 text-black rounded"
-                />
-                Generated by Peyton
-              </label>
-              <button
-                onClick={resetFilters}
-                className="text-sm text-gray-600 border border-gray-300 rounded-full px-4 py-2 w-full hover:bg-gray-100"
-              >
-                Reset
-              </button>
-            </div>
-          )}
+            {seasons.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
         </div>
-      )}
-
-      {/* Gallery Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] justify-start gap-4 min-h-[400px] max-w-screen-2xl mx-auto px-4 pt-10">
-        {filtered.map((wallpaper, index) => (
-          <div
-            key={index}
-            onClick={() => setSelectedIndex(index)}
-            className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100"
+        <div className="relative">
+          <select
+            value={styleFilter}
+            onChange={(e) => setStyleFilter(e.target.value)}
+            className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
-            <Image
-              src={wallpaper.url}
-              alt={wallpaper.filename}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              priority
-            />
-          </div>
-        ))}
-        {Array.from({ length: placeholdersNeeded }).map((_, index) => (
-          <div
-            key={`placeholder-${index}`}
-            className="aspect-[9/16] rounded-xl bg-transparent invisible"
+            {styles.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+        </div>
+        <label className="flex items-center gap-2 text-sm bg-white border border-gray-300 rounded-full pl-4 pr-4 py-2 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={peytonOnly}
+            onChange={() => setPeytonOnly(!peytonOnly)}
+            className="form-checkbox h-4 w-4 text-black rounded"
           />
-        ))}
-      </div>
-
-      {/* Modal Overlay */}
-      {selected && (
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-          onClick={() => setSelectedIndex(null)}
+          Generated by Peyton
+        </label>
+        <button
+          onClick={resetFilters}
+          className="text-sm text-gray-600 border border-gray-300 rounded-full px-4 py-2 hover:bg-gray-100"
         >
-          <div
-            className="bg-white rounded-xl w-full max-w-[240px] sm:max-w-[260px] shadow-2xl relative flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative w-full">
-              <button
-                onClick={() => setSelectedIndex(null)}
-                className="absolute top-2 right-2 z-10"
-              >
-                <span className="w-6 h-6 bg-white text-gray-700 rounded-full shadow-sm flex items-center justify-center text-base font-medium hover:bg-gray-100 leading-none">
-                  ×
-                </span>
-              </button>
-              {selectedIndex !== null && selectedIndex > 0 && (
-                <button
-                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
-                  onClick={() => setSelectedIndex((prev) => (prev ?? 1) - 1)}
-                >
-                  <ChevronLeft className="w-6 h-6 text-gray-600 bg-white rounded-full shadow hover:bg-gray-100" />
-                </button>
-              )}
-              {selectedIndex !== null && selectedIndex < filtered.length - 1 && (
-                <button
-                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
-                  onClick={() => setSelectedIndex((prev) => (prev ?? 0) + 1)}
-                >
-                  <ChevronRight className="w-6 h-6 text-gray-600 bg-white rounded-full shadow hover:bg-gray-100" />
-                </button>
-              )}
-              <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-gray-200">
-                <Image
-                  src={selected.url}
-                  alt={selected.filename}
-                  fill
-                  className="absolute inset-0 object-cover"
-                />
-              </div>
-            </div>
-            <div className="py-4">
-              <a
-                href={selected.url}
-                download
-                className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 text-sm transition"
-              >
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+          Reset
+        </button>
+      </div>
     </div>
   );
 }

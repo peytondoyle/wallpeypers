@@ -104,10 +104,6 @@ export default function HomePage() {
           setStyleFilter={setStyleFilter}
           setPeytonOnly={setPeytonOnly}
           resetFilters={resetFilters}
-          showMobileFilters={showMobileFilters}
-          setShowMobileFilters={setShowMobileFilters}
-          filterRef={filterRef}
-          toggleRef={toggleRef}
           seasons={seasons}
           styles={styles}
           setShowSuggestModal={setShowSuggestModal}

@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "process-wallpapers": "node scripts/process-all.mjs"
   },
   "dependencies": {
+    "@vercel/blob": "^1.1.1",
     "dotenv": "^16.5.0",
     "exiftool-vendored": "^30.0.0",
     "lucide-react": "^0.511.0",

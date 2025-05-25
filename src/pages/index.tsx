@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -11,6 +11,7 @@ export default function HomePage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const filtersRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -18,6 +19,20 @@ export default function HomePage() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (filtersRef.current && !filtersRef.current.contains(event.target as Node)) {
+        setShowFilters(false);
+      }
+    }
+    if (showFilters) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showFilters]);
 
   const seasons = ['All', 'Summer', 'Fall', 'Winter', 'Spring'];
   const styles = useMemo(() => {
@@ -46,58 +61,110 @@ export default function HomePage() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white to-[#fefaf6] min-h-screen font-sans text-gray-900">
+    <div className="bg-gradient-to-br from-[#fdfcfb] to-[#fefaf6] min-h-screen font-sans text-gray-900">
       <Head>
         <title>WALLPEYPERS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="p-4 sm:p-6 max-w-screen-xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2 text-center">WALLPEYPERS</h1>
-        <div className="text-center text-sm text-gray-500 mb-6">Made with 🩵 by Peyton</div>
+      <div className="p-4 sm:p-6 max-w-screen-xl mx-auto text-center">
+        <h1 className="text-3xl font-bold mb-1">WALLPEYPERS</h1>
+        <div className="text-sm text-gray-500">Made with 🩵 by Peyton</div>
       </div>
 
-      {/* Floating Toggle Button */}
+      {/* Floating Filter Toggle */}
       {isMobile && (
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="fixed top-[88px] left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-1 px-4 py-2 text-sm border border-gray-300 rounded-full bg-white shadow hover:bg-gray-100"
+          className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-1 px-4 py-2 text-sm border border-gray-300 rounded-full bg-white shadow hover:bg-gray-100"
         >
           Filters {showFilters ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
       )}
 
-      {/* Filters Bar */}
-      {(showFilters || !isMobile) && (
-        <div className="fixed top-2 left-1/2 transform -translate-x-1/2 z-40 sm:hidden">
-          <div className="flex flex-col sm:flex-row items-center gap-3 bg-white/70 backdrop-blur-md rounded-2xl shadow p-4 w-full sm:w-auto">
-            <div className="relative w-full sm:w-auto">
-              <label className="sr-only" htmlFor="seasonFilter">Season</label>
+      {/* Floating Mobile Filter Panel */}
+      {isMobile && showFilters && (
+        <div
+          ref={filtersRef}
+          className="fixed bottom-[60px] right-4 z-50 bg-white rounded-xl shadow-lg p-4 flex flex-col gap-3 w-[90vw] max-w-xs transition duration-200 ease-in-out transform scale-100"
+        >
+          {[{
+            id: 'seasonFilter',
+            value: seasonFilter,
+            setter: setSeasonFilter,
+            options: seasons
+          }, {
+            id: 'styleFilter',
+            value: styleFilter,
+            setter: setStyleFilter,
+            options: styles
+          }].map(({ id, value, setter, options }) => (
+            <div key={id} className="relative">
               <select
-                id="seasonFilter"
-                value={seasonFilter}
-                onChange={(e) => setSeasonFilter(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-10 py-2 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-gray-300"
+                id={id}
+                value={value}
+                onChange={(e) => setter(e.target.value)}
+                className="appearance-none w-full border border-gray-300 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               >
-                {seasons.map((s) => (
+                {options.map((s) => (
                   <option key={s}>{s}</option>
                 ))}
               </select>
+              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
+                <ChevronDown className="w-4 h-4" />
+              </div>
             </div>
-            <div className="relative w-full sm:w-auto">
-              <label className="sr-only" htmlFor="styleFilter">Style</label>
-              <select
-                id="styleFilter"
-                value={styleFilter}
-                onChange={(e) => setStyleFilter(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-10 py-2 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-gray-300"
-              >
-                {styles.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-            <label className="flex items-center gap-2 bg-white border border-gray-300 text-sm rounded-full pl-4 pr-4 py-2 cursor-pointer select-none w-full sm:w-auto">
+          ))}
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={peytonOnly}
+              onChange={() => setPeytonOnly(!peytonOnly)}
+              className="form-checkbox h-4 w-4 text-black rounded focus:ring-0 focus:outline-none"
+            />
+            Generated by Peyton
+          </label>
+          <button
+            onClick={resetFilters}
+            className="border border-gray-300 rounded-full px-4 py-2 text-sm hover:bg-gray-100"
+          >
+            Reset
+          </button>
+        </div>
+      )}
+
+      {/* Desktop Filter Bar */}
+      {!isMobile && (
+        <div className="sticky top-2 z-40 flex justify-center mb-6">
+          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md rounded-2xl shadow p-4">
+            {[{
+              id: 'seasonFilter',
+              value: seasonFilter,
+              setter: setSeasonFilter,
+              options: seasons
+            }, {
+              id: 'styleFilter',
+              value: styleFilter,
+              setter: setStyleFilter,
+              options: styles
+            }].map(({ id, value, setter, options }) => (
+              <div key={id} className="relative">
+                <select
+                  id={id}
+                  value={value}
+                  onChange={(e) => setter(e.target.value)}
+                  className="appearance-none bg-white border border-gray-300 text-gray-700 text-sm rounded-full pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                >
+                  {options.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
+                  <ChevronDown className="w-4 h-4" />
+                </div>
+              </div>
+            ))}
+            <label className="flex items-center gap-2 bg-white border border-gray-300 text-sm rounded-full pl-4 pr-4 py-2 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={peytonOnly}

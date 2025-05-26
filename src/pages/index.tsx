@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
 import Head from 'next/head';
-import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart, X } from 'lucide-react';
 import FilterBarDesktop from '../../components/FilterBarDesktop';
 import FilterBarMobile from '../../components/FilterBarMobile';
 import SuggestModal from '../../components/SuggestModal';
@@ -165,12 +165,12 @@ export default function HomePage() {
                 e.stopPropagation();
                 toggleFavorite(wallpaper.filename);
               }}
-              className="absolute top-2 right-2 z-10"
+              className="absolute top-2 right-2 z-10 transition-transform hover:scale-105"
             >
               {favorites.includes(wallpaper.filename) ? (
-                <Heart className="w-5 h-5 text-red-500 fill-red-500" />
+                <Heart className="w-5 h-5 text-red-500 fill-red-500 p-0.5" />
               ) : (
-                <Heart className="w-5 h-5 text-white stroke-2 drop-shadow" />
+                <Heart className="w-5 h-5 text-white stroke-2 drop-shadow p-0.5" />
               )}
             </button>
           </div>
@@ -198,18 +198,16 @@ export default function HomePage() {
                 onClick={() => setSelectedIndex(null)}
                 className="absolute top-2 left-2 z-10"
               >
-                <span className="w-6 h-6 bg-white text-gray-700 rounded-full shadow-sm flex items-center justify-center text-base font-medium hover:bg-gray-100 leading-none">
-                  ×
-                </span>
+              <X className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
               </button>
               <button
                 onClick={() => toggleFavorite(selected.filename)}
-                className="absolute top-2 right-2 z-10"
+                className="absolute top-2 right-2 z-10 transition-transform hover:scale-105"
               >
                 {favorites.includes(selected.filename) ? (
-                  <Heart className="w-6 h-6 text-red-500 fill-red-500" />
+                  <Heart className="w-7 h-7 text-red-500 fill-red-500 p-1" />
                 ) : (
-                  <Heart className="w-6 h-6 text-white stroke-2 drop-shadow" />
+                  <Heart className="w-7 h-7 text-white stroke-2 drop-shadow p-1" />
                 )}
               </button>
               {selectedIndex !== null && selectedIndex > 0 && (
@@ -217,7 +215,7 @@ export default function HomePage() {
                   className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
                   onClick={() => setSelectedIndex((prev) => (prev ?? 1) - 1)}
                 >
-                  <ChevronLeft className="w-6 h-6 text-gray-600 bg-white rounded-full shadow hover:bg-gray-100" />
+                  <ChevronLeft className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
                 </button>
               )}
               {selectedIndex !== null && selectedIndex < filtered.length - 1 && (
@@ -225,7 +223,7 @@ export default function HomePage() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
                   onClick={() => setSelectedIndex((prev) => (prev ?? 0) + 1)}
                 >
-                  <ChevronRight className="w-6 h-6 text-gray-600 bg-white rounded-full shadow hover:bg-gray-100" />
+                  <ChevronRight className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
                 </button>
               )}
               <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-gray-200">
@@ -241,7 +239,7 @@ export default function HomePage() {
               <a
                 href={selected.url}
                 download
-                className="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 text-sm transition"
+                className="text-sm text-gray-600 border border-gray-300 rounded-full px-6 py-2 hover:bg-gray-100"
               >
                 Download
               </a>

@@ -25,8 +25,9 @@ export default async function handler(
       suggestion = req.body.suggestion;
     }
   } catch (err) {
-    return res.status(400).json({ success: false, error: 'Invalid JSON' });
-  }
+  console.error('Invalid JSON error:', err);
+  return res.status(400).json({ success: false, error: 'Invalid JSON' });
+}
 
   if (!suggestion || typeof suggestion !== 'string') {
     return res.status(400).json({ success: false, error: 'Invalid suggestion format' });

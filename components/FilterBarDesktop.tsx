@@ -7,15 +7,15 @@ export default function FilterBarDesktop({
   seasonFilter,
   styleFilter,
   peytonOnly,
+  favoritesOnly,
   setSeasonFilter,
   setStyleFilter,
   setPeytonOnly,
+  setFavoritesOnly,
   resetFilters,
+  setShowSuggestModal,
   seasons,
   styles,
-  setShowSuggestModal,
-  favoritesOnly,
-  setFavoritesOnly,
 }: FilterBarProps) {
   return (
     <div className="sticky top-2 z-40 flex justify-center px-4">

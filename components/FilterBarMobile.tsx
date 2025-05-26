@@ -1,30 +1,22 @@
 'use client';
 
 import { ChevronDown, Heart } from 'lucide-react';
-import type { FilterBarProps } from '../types/filters';
 import type { FilterBarMobileProps } from '../types/filters';
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-type LocalMobileProps = FilterBarProps;
 
 export default function FilterBarMobile({
   seasonFilter,
   styleFilter,
   peytonOnly,
+  favoritesOnly,
   setSeasonFilter,
   setStyleFilter,
   setPeytonOnly,
+  setFavoritesOnly,
   resetFilters,
+  setShowSuggestModal,
+  filterRef,
   seasons,
   styles,
-  setShowSuggestModal,
-  showMobileFilters,
-  setShowMobileFilters,
-  filterRef,
-  toggleRef,
-  favoritesOnly,
-  setFavoritesOnly,
 }: FilterBarMobileProps) {
   return (
     <div ref={filterRef} className="sticky top-2 z-40 flex justify-center px-4">

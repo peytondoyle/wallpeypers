@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
@@ -13,15 +13,13 @@ export default function HomePage() {
   const [seasonFilter, setSeasonFilter] = useState('All Seasons');
   const [styleFilter, setStyleFilter] = useState('All Styles');
   const [peytonOnly, setPeytonOnly] = useState(false);
-  const [favsOnly, setFavsOnly] = useState(false);
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [showSuggestModal, setShowSuggestModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
   const filterRef = useRef<HTMLDivElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -38,23 +36,6 @@ export default function HomePage() {
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-      if (
-        showMobileFilters &&
-        filterRef.current &&
-        toggleRef.current &&
-        !filterRef.current.contains(target) &&
-        !toggleRef.current.contains(target)
-      ) {
-        setShowMobileFilters(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showMobileFilters]);
 
   const seasons = ['All Seasons', 'Summer', 'Fall', 'Winter', 'Spring'];
   const styles = useMemo(() => {
@@ -84,7 +65,7 @@ export default function HomePage() {
     setSeasonFilter('All Seasons');
     setStyleFilter('All Styles');
     setPeytonOnly(false);
-    setFavsOnly(false);
+    setFavoritesOnly(false);
   };
 
   const toggleFavorite = (filename: string) => {
@@ -96,6 +77,10 @@ export default function HomePage() {
   const minGalleryCount = 5;
   const placeholdersNeeded = Math.max(0, minGalleryCount - filtered.length);
   const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
+
+  useEffect(() => {
+    if (selected) setImageLoaded(false);
+  }, [selected]);
 
   return (
     <div className="bg-gradient-to-br from-[#fdfcfb] to-[#fef6ec] min-h-screen font-sans text-gray-900 pb-10">
@@ -136,45 +121,46 @@ export default function HomePage() {
           seasons={seasons}
           styles={styles}
           setShowSuggestModal={setShowSuggestModal}
-          showMobileFilters={showMobileFilters}
-          setShowMobileFilters={setShowMobileFilters}
           filterRef={filterRef}
-          toggleRef={toggleRef}
           favoritesOnly={favoritesOnly}
           setFavoritesOnly={setFavoritesOnly}
         />
       )}
 
       <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(180px,1fr))] justify-start gap-4 min-h-[400px] max-w-screen-2xl mx-auto px-4 pt-10">
-        {filtered.map((wallpaper, index) => (
-          <div
-            key={index}
-            onClick={() => setSelectedIndex(index)}
-            className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100 group"
-          >
+        {filtered.map((wallpaper, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => setSelectedIndex(index)}
+              className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100 group"
+            >
             <Image
-              src={wallpaper.url}
+              src={wallpaper.thumbUrl || wallpaper.url}
               alt={wallpaper.filename}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              priority
+              placeholder="blur"
+              blurDataURL={wallpaper.thumbUrl || wallpaper.url}
+              priority={index < 6}
             />
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFavorite(wallpaper.filename);
-              }}
-              className="absolute top-2 right-2 z-10 transition-transform hover:scale-105"
-            >
-              {favorites.includes(wallpaper.filename) ? (
-                <Heart className="w-5 h-5 text-red-500 fill-red-500 p-0.5" />
-              ) : (
-                <Heart className="w-5 h-5 text-white stroke-2 drop-shadow p-0.5" />
-              )}
-            </button>
-          </div>
-        ))}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFavorite(wallpaper.filename);
+                }}
+                className="absolute top-2 right-2 z-10 transition-transform hover:scale-105"
+              >
+                {favorites.includes(wallpaper.filename) ? (
+                  <Heart className="w-5 h-5 text-red-500 fill-red-500 p-0.5" />
+                ) : (
+                  <Heart className="w-5 h-5 text-white stroke-2 drop-shadow p-0.5" />
+                )}
+              </button>
+            </div>
+          );
+        })}
 
         {Array.from({ length: placeholdersNeeded }).map((_, index) => (
           <div
@@ -198,7 +184,7 @@ export default function HomePage() {
                 onClick={() => setSelectedIndex(null)}
                 className="absolute top-2 left-2 z-10"
               >
-              <X className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
+                <X className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
               </button>
               <button
                 onClick={() => toggleFavorite(selected.filename)}
@@ -231,7 +217,13 @@ export default function HomePage() {
                   src={selected.url}
                   alt={selected.filename}
                   fill
-                  className="absolute inset-0 object-cover"
+                  className={`absolute inset-0 object-cover transition-opacity duration-500 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  placeholder="blur"
+                  blurDataURL={selected.url.replace('/full/', '/thumbs/')}
+                  loading="lazy"
+                  onLoadingComplete={() => setImageLoaded(true)}
                 />
               </div>
             </div>

@@ -154,6 +154,7 @@ const run = async () => {
       created: new Date(created).toISOString(),
       url: blob.url,
       tags,
+      thumbUrl: `/wallpapers/thumbs/${filename}`,
     });
 
     // Generate thumbnail

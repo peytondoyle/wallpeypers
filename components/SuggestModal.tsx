@@ -73,7 +73,7 @@ export default function SuggestModal({ onClose }: { onClose: () => void }) {
             </button>
           </>
         ) : (
-          <div className="text-center text-green-600 font-medium">Thanks for your idea!</div>
+          <div className="text-left text-green-600 font-medium">Thanks for your idea!</div>
         )}
       </div>
     </div>

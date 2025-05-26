@@ -162,6 +162,14 @@ export default function HomePage() {
           );
         })}
 
+        {favoritesOnly && filtered.length === 0 && (
+        <div className="col-span-full text-center text-gray-500 mt-20">
+          <div className="text-5xl mb-4">💔</div>
+          <p className="text-lg font-medium">No favorites yet</p>
+          <p className="text-sm">Tap the heart on any wallpaper to save it here!</p>
+        </div>
+      )}
+
         {Array.from({ length: placeholdersNeeded }).map((_, index) => (
           <div
             key={`placeholder-${index}`}

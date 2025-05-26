@@ -15,17 +15,28 @@ export default async function handler(
     return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
-  const { suggestion } = req.body;
+  let suggestion: string | undefined;
+
+  try {
+    if (typeof req.body === 'string') {
+      const parsed = JSON.parse(req.body);
+      suggestion = parsed.suggestion;
+    } else {
+      suggestion = req.body.suggestion;
+    }
+  } catch (err) {
+    return res.status(400).json({ success: false, error: 'Invalid JSON' });
+  }
 
   if (!suggestion || typeof suggestion !== 'string') {
-    return res.status(400).json({ success: false, error: 'Invalid suggestion' });
+    return res.status(400).json({ success: false, error: 'Invalid suggestion format' });
   }
 
   const resendKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.SUGGESTION_TO_EMAIL;
 
   if (!resendKey || !toEmail) {
-    return res.status(500).json({ success: false, error: 'Missing env vars' });
+    return res.status(500).json({ success: false, error: 'Missing environment variables' });
   }
 
   const response = await fetch('https://api.resend.com/emails', {
@@ -35,7 +46,7 @@ export default async function handler(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'WALLPEYPERS <onboarding@resend.dev>', // or hello@wallpeypers.com if verified
+      from: 'WALLPEYPERS <onboarding@resend.dev>',
       to: toEmail,
       subject: '🖼️ New Wallpaper Suggestion',
       html: `<p>${suggestion}</p>`,

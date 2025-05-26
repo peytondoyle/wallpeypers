@@ -18,6 +18,9 @@ export default function FilterBarMobile({
   seasons,
   styles,
 }: FilterBarMobileProps) {
+  const selectedClass = 'bg-gray-200 text-gray-800 border-gray-400';
+  const unselectedClass = 'text-gray-600 border-gray-300 hover:bg-gray-100';
+
   return (
     <div ref={filterRef} className="sticky top-2 z-40 flex justify-center px-4">
       <div className="flex flex-col gap-2 bg-white/80 backdrop-blur-md rounded-2xl shadow p-4 border border-gray-200 w-full max-w-md">
@@ -55,9 +58,7 @@ export default function FilterBarMobile({
           <button
             onClick={() => setFavoritesOnly(!favoritesOnly)}
             className={`text-sm px-4 py-2 rounded-full border transition ${
-              favoritesOnly
-                ? 'bg-black text-white border-black hover:bg-gray-900'
-                : 'text-gray-600 border-gray-300 hover:bg-gray-100'
+              favoritesOnly ? selectedClass : unselectedClass
             }`}
           >
             <Heart className="inline w-4 h-4 mr-1" />
@@ -67,9 +68,7 @@ export default function FilterBarMobile({
           <button
             onClick={() => setPeytonOnly(!peytonOnly)}
             className={`text-sm px-4 py-2 rounded-full border transition ${
-              peytonOnly
-                ? 'bg-black text-white border-black hover:bg-gray-900'
-                : 'text-gray-600 border-gray-300 hover:bg-gray-100'
+              peytonOnly ? selectedClass : unselectedClass
             }`}
           >
             Made by PeyAI

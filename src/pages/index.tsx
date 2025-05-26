@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
 import Head from 'next/head';
-import { ChevronLeft, ChevronRight, Heart, HeartOff } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import FilterBarDesktop from '../../components/FilterBarDesktop';
 import FilterBarMobile from '../../components/FilterBarMobile';
 import SuggestModal from '../../components/SuggestModal';
@@ -13,6 +13,7 @@ export default function HomePage() {
   const [seasonFilter, setSeasonFilter] = useState('All Seasons');
   const [styleFilter, setStyleFilter] = useState('All Styles');
   const [peytonOnly, setPeytonOnly] = useState(false);
+  const [favsOnly, setFavsOnly] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [showSuggestModal, setShowSuggestModal] = useState(false);
@@ -20,6 +21,7 @@ export default function HomePage() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const filterRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -72,22 +74,22 @@ export default function HomePage() {
       return (
         (seasonFilter === 'All Seasons' || w.season === seasonFilter) &&
         (styleFilter === 'All Styles' || w.style === styleFilter) &&
-        (!peytonOnly || w.source.toLowerCase() === 'peyton')
+        (!peytonOnly || w.source.toLowerCase() === 'peyton') &&
+        (!favoritesOnly || favorites.includes(w.filename))
       );
     });
-  }, [sortedWallpapers, seasonFilter, styleFilter, peytonOnly]);
+  }, [sortedWallpapers, seasonFilter, styleFilter, peytonOnly, favoritesOnly, favorites]);
 
   const resetFilters = () => {
     setSeasonFilter('All Seasons');
     setStyleFilter('All Styles');
     setPeytonOnly(false);
+    setFavsOnly(false);
   };
 
   const toggleFavorite = (filename: string) => {
     setFavorites((prev) =>
-      prev.includes(filename)
-        ? prev.filter((f) => f !== filename)
-        : [...prev, filename]
+      prev.includes(filename) ? prev.filter((f) => f !== filename) : [...prev, filename]
     );
   };
 
@@ -119,6 +121,8 @@ export default function HomePage() {
           seasons={seasons}
           styles={styles}
           setShowSuggestModal={setShowSuggestModal}
+          favoritesOnly={favoritesOnly}
+          setFavoritesOnly={setFavoritesOnly}
         />
       ) : (
         <FilterBarMobile
@@ -136,6 +140,8 @@ export default function HomePage() {
           setShowMobileFilters={setShowMobileFilters}
           filterRef={filterRef}
           toggleRef={toggleRef}
+          favoritesOnly={favoritesOnly}
+          setFavoritesOnly={setFavoritesOnly}
         />
       )}
 
@@ -144,7 +150,7 @@ export default function HomePage() {
           <div
             key={index}
             onClick={() => setSelectedIndex(index)}
-            className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100"
+            className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100 group"
           >
             <Image
               src={wallpaper.url}
@@ -190,11 +196,21 @@ export default function HomePage() {
             <div className="relative w-full">
               <button
                 onClick={() => setSelectedIndex(null)}
-                className="absolute top-2 right-2 z-10"
+                className="absolute top-2 left-2 z-10"
               >
                 <span className="w-6 h-6 bg-white text-gray-700 rounded-full shadow-sm flex items-center justify-center text-base font-medium hover:bg-gray-100 leading-none">
                   ×
                 </span>
+              </button>
+              <button
+                onClick={() => toggleFavorite(selected.filename)}
+                className="absolute top-2 right-2 z-10"
+              >
+                {favorites.includes(selected.filename) ? (
+                  <Heart className="w-6 h-6 text-red-500 fill-red-500" />
+                ) : (
+                  <Heart className="w-6 h-6 text-white stroke-2 drop-shadow" />
+                )}
               </button>
               {selectedIndex !== null && selectedIndex > 0 && (
                 <button

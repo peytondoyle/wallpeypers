@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
 import Head from 'next/head';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart, HeartOff } from 'lucide-react';
 import FilterBarDesktop from '../../components/FilterBarDesktop';
 import FilterBarMobile from '../../components/FilterBarMobile';
 import SuggestModal from '../../components/SuggestModal';
@@ -17,6 +17,7 @@ export default function HomePage() {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [showSuggestModal, setShowSuggestModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [favorites, setFavorites] = useState<string[]>([]);
   const filterRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -26,6 +27,15 @@ export default function HomePage() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('favorites');
+    if (saved) setFavorites(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -71,6 +81,14 @@ export default function HomePage() {
     setSeasonFilter('All Seasons');
     setStyleFilter('All Styles');
     setPeytonOnly(false);
+  };
+
+  const toggleFavorite = (filename: string) => {
+    setFavorites((prev) =>
+      prev.includes(filename)
+        ? prev.filter((f) => f !== filename)
+        : [...prev, filename]
+    );
   };
 
   const minGalleryCount = 5;
@@ -136,6 +154,19 @@ export default function HomePage() {
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
               priority
             />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(wallpaper.filename);
+              }}
+              className="absolute top-2 right-2 z-10"
+            >
+              {favorites.includes(wallpaper.filename) ? (
+                <Heart className="w-5 h-5 text-red-500 fill-red-500" />
+              ) : (
+                <Heart className="w-5 h-5 text-white stroke-2 drop-shadow" />
+              )}
+            </button>
           </div>
         ))}
 

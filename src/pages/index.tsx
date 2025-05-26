@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import wallpapersData from '../../data/wallpapers.json';
 import Image from 'next/image';
 import Head from 'next/head';
-import { ChevronLeft, ChevronRight, Heart, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart, X, Share } from 'lucide-react';
 import FilterBarDesktop from '../../components/FilterBarDesktop';
 import FilterBarMobile from '../../components/FilterBarMobile';
 import SuggestModal from '../../components/SuggestModal';
@@ -12,7 +12,6 @@ import SuggestModal from '../../components/SuggestModal';
 export default function HomePage() {
   const [seasonFilter, setSeasonFilter] = useState('All Seasons');
   const [styleFilter, setStyleFilter] = useState('All Styles');
-  const [peytonOnly, setPeytonOnly] = useState(false);
   const [favoritesOnly, setFavoritesOnly] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [showSuggestModal, setShowSuggestModal] = useState(false);
@@ -20,6 +19,7 @@ export default function HomePage() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const filterRef = useRef<HTMLDivElement>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const shareInProgress = useRef(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -55,16 +55,32 @@ export default function HomePage() {
       return (
         (seasonFilter === 'All Seasons' || w.season === seasonFilter) &&
         (styleFilter === 'All Styles' || w.style === styleFilter) &&
-        (!peytonOnly || w.source.toLowerCase() === 'peyton') &&
         (!favoritesOnly || favorites.includes(w.filename))
       );
     });
-  }, [sortedWallpapers, seasonFilter, styleFilter, peytonOnly, favoritesOnly, favorites]);
+  }, [sortedWallpapers, seasonFilter, styleFilter, favoritesOnly, favorites]);
+
+  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
+
+  useEffect(() => {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setSelectedIndex(null);
+    }
+  };
+
+  if (selected) {
+    document.addEventListener('keydown', handleKeyDown);
+  }
+
+  return () => {
+    document.removeEventListener('keydown', handleKeyDown);
+  };
+  }, [selected]);
 
   const resetFilters = () => {
     setSeasonFilter('All Seasons');
     setStyleFilter('All Styles');
-    setPeytonOnly(false);
     setFavoritesOnly(false);
   };
 
@@ -76,7 +92,6 @@ export default function HomePage() {
 
   const minGalleryCount = 5;
   const placeholdersNeeded = Math.max(0, minGalleryCount - filtered.length);
-  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
 
   useEffect(() => {
     if (selected) setImageLoaded(false);
@@ -98,10 +113,8 @@ export default function HomePage() {
         <FilterBarDesktop
           seasonFilter={seasonFilter}
           styleFilter={styleFilter}
-          peytonOnly={peytonOnly}
           setSeasonFilter={setSeasonFilter}
           setStyleFilter={setStyleFilter}
-          setPeytonOnly={setPeytonOnly}
           resetFilters={resetFilters}
           seasons={seasons}
           styles={styles}
@@ -113,10 +126,8 @@ export default function HomePage() {
         <FilterBarMobile
           seasonFilter={seasonFilter}
           styleFilter={styleFilter}
-          peytonOnly={peytonOnly}
           setSeasonFilter={setSeasonFilter}
           setStyleFilter={setStyleFilter}
-          setPeytonOnly={setPeytonOnly}
           resetFilters={resetFilters}
           seasons={seasons}
           styles={styles}
@@ -133,18 +144,20 @@ export default function HomePage() {
             <div
               key={index}
               onClick={() => setSelectedIndex(index)}
-              className="relative aspect-[9/16] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100 group"
+              className="relative aspect-[9/19.5] rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border hover:border-gray-300 transition cursor-pointer bg-gray-100 group"
             >
+            <a href={wallpaper.url} download className="pointer-events-auto">
             <Image
               src={wallpaper.thumbUrl || wallpaper.url}
               alt={wallpaper.filename}
               fill
-              className="object-cover"
+              className="object-cover pointer-events-none"
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
               placeholder="blur"
               blurDataURL={wallpaper.thumbUrl || wallpaper.url}
               priority={index < 6}
             />
+            </a>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -173,7 +186,7 @@ export default function HomePage() {
         {Array.from({ length: placeholdersNeeded }).map((_, index) => (
           <div
             key={`placeholder-${index}`}
-            className="aspect-[9/16] rounded-xl bg-transparent invisible"
+            className="aspect-[9/19.5] rounded-xl bg-transparent invisible"
           />
         ))}
       </div>
@@ -194,6 +207,7 @@ export default function HomePage() {
               >
                 <X className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
               </button>
+
               <button
                 onClick={() => toggleFavorite(selected.filename)}
                 className="absolute top-2 right-2 z-10 transition-transform hover:scale-105"
@@ -203,6 +217,42 @@ export default function HomePage() {
                 ) : (
                   <Heart className="w-7 h-7 text-white stroke-2 drop-shadow p-1" />
                 )}
+              </button>
+
+              {/* 🖼️ Share Button */}
+              <button
+                onClick={async () => {
+                  if (shareInProgress.current) return; // Prevent rapid double-taps
+                  shareInProgress.current = true;
+
+                  const slug = selected.filename.replace(/\.[^/.]+$/, ''); // remove file extension
+                  const shareUrl = `https://wallpeypers.vercel.app/wallpaper/${slug}`;
+
+                  const shareData = {
+                    title: 'WALLPEYPERS',
+                    text: 'Check out this dreamy wallpaper from WALLPEYPERS!',
+                    url: shareUrl,
+                  };
+
+                  try {
+                    if (navigator.share && navigator.canShare?.(shareData)) {
+                      await navigator.share(shareData);
+                    } else {
+                      await navigator.clipboard.writeText(shareUrl);
+                      alert('🔗 Link copied to clipboard!');
+                    }
+                  } catch (err: unknown) {
+                    if (err instanceof Error) {
+                      console.error('Sharing failed:', err.message);
+                    }
+                  } finally {
+                    shareInProgress.current = false;
+                  }
+                }}
+                className="absolute top-2 left-10 z-10 transition-transform hover:scale-105 bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm"
+                aria-label="Share"
+              >
+                <Share className="w-4 h-4" />
               </button>
               {selectedIndex !== null && selectedIndex > 0 && (
                 <button
@@ -220,13 +270,13 @@ export default function HomePage() {
                   <ChevronRight className="bg-white text-gray-700 rounded-full p-1 w-6 h-6 shadow-sm" />
                 </button>
               )}
-              <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden border border-gray-200">
+              <div className="relative w-full aspect-[9/19.5] rounded-xl overflow-hidden border border-gray-200">
                 <Image
                   src={selected.url}
                   alt={selected.filename}
                   fill
                   className={`absolute inset-0 object-cover transition-opacity duration-500 ${
-                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
                   placeholder="blur"
                   blurDataURL={selected.url.replace('/full/', '/thumbs/')}

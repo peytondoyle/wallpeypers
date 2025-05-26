@@ -6,11 +6,9 @@ import type { FilterBarProps } from '../types/filters';
 export default function FilterBarDesktop({
   seasonFilter,
   styleFilter,
-  peytonOnly,
   favoritesOnly,
   setSeasonFilter,
   setStyleFilter,
-  setPeytonOnly,
   setFavoritesOnly,
   resetFilters,
   setShowSuggestModal,
@@ -61,16 +59,6 @@ export default function FilterBarDesktop({
         >
           <Heart className="inline w-4 h-4 mr-1" />
           Favs
-        </button>
-
-        {/* PeyAI Toggle */}
-        <button
-          onClick={() => setPeytonOnly(!peytonOnly)}
-          className={`text-sm px-4 py-2 rounded-full border transition ${
-            peytonOnly ? selectedClass : unselectedClass
-          }`}
-        >
-          Made by PeyAI
         </button>
 
         {/* Reset Button */}

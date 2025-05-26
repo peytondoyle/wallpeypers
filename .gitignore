@@ -42,3 +42,9 @@ next-env.d.ts
 
 # Wallpaper upload input (auto-processed)
 public/wallpapers/input
+
+# prevent oversized files
+/public/wallpapers/full-backup/
+/public/wallpapers/thumbs-backup/
+/public/wallpapers/full/
+/data/wallpapers.backup.json

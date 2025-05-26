@@ -6,7 +6,6 @@ import type { RefObject } from 'react';
 export type FilterValues = {
   seasonFilter: string;
   styleFilter: string;
-  peytonOnly: boolean;
   favoritesOnly: boolean;
   seasons: string[];
   styles: string[];
@@ -18,7 +17,6 @@ export type FilterValues = {
 export type FilterSetters = {
   setSeasonFilter: (val: string) => void;
   setStyleFilter: (val: string) => void;
-  setPeytonOnly: (val: boolean) => void;
   setFavoritesOnly: (val: boolean) => void;
   resetFilters: () => void;
   setShowSuggestModal: (val: boolean) => void;

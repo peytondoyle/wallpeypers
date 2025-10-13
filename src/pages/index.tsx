@@ -153,8 +153,6 @@ export default function HomePage() {
               fill
               className="object-cover pointer-events-none"
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              placeholder="blur"
-              blurDataURL={wallpaper.thumbUrl || wallpaper.url}
               priority={index < 6}
             />
             </a>
@@ -278,8 +276,6 @@ export default function HomePage() {
                   className={`absolute inset-0 object-cover transition-opacity duration-500 ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
-                  placeholder="blur"
-                  blurDataURL={selected.url.replace('/full/', '/thumbs/')}
                   loading="lazy"
                   onLoadingComplete={() => setImageLoaded(true)}
                 />

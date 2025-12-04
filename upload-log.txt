@@ -1,0 +1,574 @@
+
+🚀 Starting upload from local files...
+📁 Local directory: public/wallpapers/full
+📦 R2 prefix: wallpeypers
+🪣 R2 bucket: peyton-media
+
+📊 Found 139 files to upload
+
+
+[1/139]
+⬆️  Uploading: apple-tree-in-scenic-field.jpg (565.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/apple-tree-in-scenic-field.jpg
+
+[2/139]
+⬆️  Uploading: apples-in-wooden-cart.jpg (593.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/apples-in-wooden-cart.jpg
+
+[3/139]
+⬆️  Uploading: apples-tree-mountains-warm-colors.jpg (484.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/apples-tree-mountains-warm-colors.jpg
+
+[4/139]
+⬆️  Uploading: beach-bonfire-under-starry-sky.png (5277.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/beach-bonfire-under-starry-sky.png
+
+[5/139]
+⬆️  Uploading: beach-cats.png (4957.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/beach-cats.png
+
+[6/139]
+⬆️  Uploading: beach-scene-with-crabs.png (7513.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/beach-scene-with-crabs.png
+
+[7/139]
+⬆️  Uploading: beach-sunset-campfire-palm-trees.png (5737.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/beach-sunset-campfire-palm-trees.png
+
+[8/139]
+⬆️  Uploading: beachside-caf-miniatures-sunset.png (7561.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/beachside-caf-miniatures-sunset.png
+
+[9/139]
+⬆️  Uploading: beachside-dining-bright-serene.png (7128.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/beachside-dining-bright-serene.png
+
+[10/139]
+⬆️  Uploading: black-cat-with-christmas-tree.jpg (451.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/black-cat-with-christmas-tree.jpg
+
+[11/139]
+⬆️  Uploading: bunny-and-hedgehog-sharing-tea.jpg (318.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/bunny-and-hedgehog-sharing-tea.jpg
+
+[12/139]
+⬆️  Uploading: cacti-with-vibrant-blooms-sunset.png (5697.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cacti-with-vibrant-blooms-sunset.png
+
+[13/139]
+⬆️  Uploading: cactus-blossoms-during-vibrant-sunset.png (5134.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cactus-blossoms-during-vibrant-sunset.png
+
+[14/139]
+⬆️  Uploading: campfire-by-sunset-beach-summer.png (5833.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/campfire-by-sunset-beach-summer.png
+
+[15/139]
+⬆️  Uploading: capybaras-with-flower-crowns.png (6433.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/capybaras-with-flower-crowns.png
+
+[16/139]
+⬆️  Uploading: cat-atop-sandcastle-by-ocean.png (7235.1KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-atop-sandcastle-by-ocean.png
+
+[17/139]
+⬆️  Uploading: cat-beside-christmas-tree-ornaments.jpg (449.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-beside-christmas-tree-ornaments.jpg
+
+[18/139]
+⬆️  Uploading: cat-by-fireplace-with-snow.jpg (333.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-by-fireplace-with-snow.jpg
+
+[19/139]
+⬆️  Uploading: cat-by-ornate-fireplace-scene.jpg (552.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-by-ornate-fireplace-scene.jpg
+
+[20/139]
+⬆️  Uploading: cat-in-elegant-victorian-outfit.jpg (392.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-in-elegant-victorian-outfit.jpg
+
+[21/139]
+⬆️  Uploading: cat-in-sandcastle-tower.png (7103.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-in-sandcastle-tower.png
+
+[22/139]
+⬆️  Uploading: cat-in-stained-glass-art.jpg (503.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-in-stained-glass-art.jpg
+
+[23/139]
+⬆️  Uploading: cat-in-whimsical-winter-wonderland.jpg (458.1KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-in-whimsical-winter-wonderland.jpg
+
+[24/139]
+⬆️  Uploading: cat-nap-by-ornate-fireplace.jpg (423.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-nap-by-ornate-fireplace.jpg
+
+[25/139]
+⬆️  Uploading: cat-napping-on-beach-swing.png (7035.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-napping-on-beach-swing.png
+
+[26/139]
+⬆️  Uploading: cat-napping-on-cushion-swing.png (7021.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-napping-on-cushion-swing.png
+
+[27/139]
+⬆️  Uploading: cat-napping-on-swing.png (7456.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-napping-on-swing.png
+
+[28/139]
+⬆️  Uploading: cat-on-snowy-village-bridge.jpg (527.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-on-snowy-village-bridge.jpg
+
+[29/139]
+⬆️  Uploading: cat-on-snowy-wooden-bridge.jpg (512.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-on-snowy-wooden-bridge.jpg
+
+[30/139]
+⬆️  Uploading: cat-relaxing-on-beach-towel.png (7125.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-relaxing-on-beach-towel.png
+
+[31/139]
+⬆️  Uploading: cat-resting-under-sunshade.png (7057.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-resting-under-sunshade.png
+
+[32/139]
+⬆️  Uploading: cat-wearing-santa-hat.jpg (547.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-wearing-santa-hat.jpg
+
+[33/139]
+⬆️  Uploading: cat-with-decorated-trees.jpg (486.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cat-with-decorated-trees.jpg
+
+[34/139]
+⬆️  Uploading: cats-dressed-in-winter-attire.jpg (438.1KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cats-dressed-in-winter-attire.jpg
+
+[35/139]
+⬆️  Uploading: cats-wearing-sunglasses-at-beach.png (6884.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cats-wearing-sunglasses-at-beach.png
+
+[36/139]
+⬆️  Uploading: charming-cafe-by-the-sea.png (7548.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/charming-cafe-by-the-sea.png
+
+[37/139]
+⬆️  Uploading: charming-outdoor-caf-setting.png (7513.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/charming-outdoor-caf-setting.png
+
+[38/139]
+⬆️  Uploading: charming-seaside-caf-warm-lighting.png (7225.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/charming-seaside-caf-warm-lighting.png
+
+[39/139]
+⬆️  Uploading: coastal-cafe-under-string-lights.png (6810.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/coastal-cafe-under-string-lights.png
+
+[40/139]
+⬆️  Uploading: colorful-abstract-flowing-lines.jpg (448.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-abstract-flowing-lines.jpg
+
+[41/139]
+⬆️  Uploading: colorful-abstract-swirling-lines.jpg (543.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-abstract-swirling-lines.jpg
+
+[42/139]
+⬆️  Uploading: colorful-abstract-swirling-patterns.jpg (359.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-abstract-swirling-patterns.jpg
+
+[43/139]
+⬆️  Uploading: colorful-drinks-fruits-hearts.png (4939.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-drinks-fruits-hearts.png
+
+[44/139]
+⬆️  Uploading: colorful-fruit-cart-bright-sky.png (7806.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-fruit-cart-bright-sky.png
+
+[45/139]
+⬆️  Uploading: colorful-houses-in-snowy-mountains.jpg (416.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-houses-in-snowy-mountains.jpg
+
+[46/139]
+⬆️  Uploading: colorful-sunset-reflected-in-water.png (6640.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-sunset-reflected-in-water.png
+
+[47/139]
+⬆️  Uploading: colorful-umbrellas-on-crowded-beach.png (5513.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/colorful-umbrellas-on-crowded-beach.png
+
+[48/139]
+⬆️  Uploading: cozy-armchair-by-frosted-window.jpg (521.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cozy-armchair-by-frosted-window.jpg
+
+[49/139]
+⬆️  Uploading: cozy-beach-campfire-at-sunset.png (5698.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cozy-beach-campfire-at-sunset.png
+
+[50/139]
+⬆️  Uploading: cozy-chair-and-snowy-window.jpg (503.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cozy-chair-and-snowy-window.jpg
+
+[51/139]
+⬆️  Uploading: cozy-fireplace-and-christmas-tree.jpg (444.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cozy-fireplace-and-christmas-tree.jpg
+
+[52/139]
+⬆️  Uploading: cozy-room-with-christmas-tree.jpg (541.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cozy-room-with-christmas-tree.jpg
+
+[53/139]
+⬆️  Uploading: cozy-winter-scene-indoors.jpg (368.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cozy-winter-scene-indoors.jpg
+
+[54/139]
+⬆️  Uploading: cute-animals-in-colorful-van.png (5817.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-animals-in-colorful-van.png
+
+[55/139]
+⬆️  Uploading: cute-animals-on-bus-ride.png (4638.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-animals-on-bus-ride.png
+
+[56/139]
+⬆️  Uploading: cute-animals-on-summer-beach.png (5387.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-animals-on-summer-beach.png
+
+[57/139]
+⬆️  Uploading: cute-animals-with-hot-beverage.jpg (297.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-animals-with-hot-beverage.jpg
+
+[58/139]
+⬆️  Uploading: cute-bears-enjoying-beach-picnic.png (6145.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-bears-enjoying-beach-picnic.png
+
+[59/139]
+⬆️  Uploading: cute-chicks-in-a-pool.png (7271.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-chicks-in-a-pool.png
+
+[60/139]
+⬆️  Uploading: cute-hamsters-enjoying-beach-vibes.png (6048.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-hamsters-enjoying-beach-vibes.png
+
+[61/139]
+⬆️  Uploading: cute-kitten-in-sandcastle.png (7160.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-kitten-in-sandcastle.png
+
+[62/139]
+⬆️  Uploading: cute-kitten-lantern-autumn-leaves.jpg (349.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-kitten-lantern-autumn-leaves.jpg
+
+[63/139]
+⬆️  Uploading: cute-kitten-with-cookies.jpg (289.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-kitten-with-cookies.jpg
+
+[64/139]
+⬆️  Uploading: cute-kittens-with-pumpkins.jpg (232.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-kittens-with-pumpkins.jpg
+
+[65/139]
+⬆️  Uploading: cute-picnic-with-fruits.png (6254.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/cute-picnic-with-fruits.png
+
+[66/139]
+⬆️  Uploading: ducks-in-pool-with-floats.png (7531.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/ducks-in-pool-with-floats.png
+
+[67/139]
+⬆️  Uploading: ducks-in-sunglasses-floating.png (7512.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/ducks-in-sunglasses-floating.png
+
+[68/139]
+⬆️  Uploading: elegant-figures-in-snowy-scene.jpg (436.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/elegant-figures-in-snowy-scene.jpg
+
+[69/139]
+⬆️  Uploading: elegant-room-fireplace-cat.jpg (496.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/elegant-room-fireplace-cat.jpg
+
+[70/139]
+⬆️  Uploading: elegant-room-with-festive-decor.jpg (435.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/elegant-room-with-festive-decor.jpg
+
+[71/139]
+⬆️  Uploading: fairies-dining-under-mushrooms.png (7569.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/fairies-dining-under-mushrooms.png
+
+[72/139]
+⬆️  Uploading: fairies-having-a-tea-party.png (7543.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/fairies-having-a-tea-party.png
+
+[73/139]
+⬆️  Uploading: fairy-mushrooms-tea-glowing-forest.png (7758.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/fairy-mushrooms-tea-glowing-forest.png
+
+[74/139]
+⬆️  Uploading: fairy-picnic-on-mushroom-table.png (7493.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/fairy-picnic-on-mushroom-table.png
+
+[75/139]
+⬆️  Uploading: frogs-eating-popsicles-together.png (7597.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/frogs-eating-popsicles-together.png
+
+[76/139]
+⬆️  Uploading: frogs-in-sunglasses-relaxing-beach.png (7138.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/frogs-in-sunglasses-relaxing-beach.png
+
+[77/139]
+⬆️  Uploading: frogs-lounging-with-sunglasses.png (7242.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/frogs-lounging-with-sunglasses.png
+
+[78/139]
+⬆️  Uploading: frogs-relaxing-with-drinks.png (7228.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/frogs-relaxing-with-drinks.png
+
+[79/139]
+⬆️  Uploading: frogs-wearing-sunglasses-hats.png (6588.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/frogs-wearing-sunglasses-hats.png
+
+[80/139]
+⬆️  Uploading: ghosts-among-bare-eerie-trees.jpg (499.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/ghosts-among-bare-eerie-trees.jpg
+
+[81/139]
+⬆️  Uploading: ghosts-picking-apples-at-night.jpg (688.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/ghosts-picking-apples-at-night.jpg
+
+[82/139]
+⬆️  Uploading: ghosts-pumpkins-bare-trees.jpg (549.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/ghosts-pumpkins-bare-trees.jpg
+
+[83/139]
+⬆️  Uploading: girl-with-apples-and-cats.jpg (397.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/girl-with-apples-and-cats.jpg
+
+[84/139]
+⬆️  Uploading: glowing-mushrooms-in-dark-forest.jpg (303.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/glowing-mushrooms-in-dark-forest.jpg
+
+[85/139]
+⬆️  Uploading: hamsters-beach-umbrellas-sand-castles.png (6027.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/hamsters-beach-umbrellas-sand-castles.png
+
+[86/139]
+⬆️  Uploading: hamsters-vacationing-on-beach.png (6560.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/hamsters-vacationing-on-beach.png
+
+[87/139]
+⬆️  Uploading: hedgehogs-with-tropical-drinks.png (7367.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/hedgehogs-with-tropical-drinks.png
+
+[88/139]
+⬆️  Uploading: kitten-with-holiday-cookies.jpg (267.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/kitten-with-holiday-cookies.jpg
+
+[89/139]
+⬆️  Uploading: luxurious-room-with-cat.jpg (462.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/luxurious-room-with-cat.jpg
+
+[90/139]
+⬆️  Uploading: miniature-beach-scene-sunset.png (7626.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/miniature-beach-scene-sunset.png
+
+[91/139]
+⬆️  Uploading: miniature-beachside-scene-sunset.png (7088.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/miniature-beachside-scene-sunset.png
+
+[92/139]
+⬆️  Uploading: miniature-snowy-village-scene.jpg (316.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/miniature-snowy-village-scene.jpg
+
+[93/139]
+⬆️  Uploading: miniature-tropical-beach-scene.png (7518.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/miniature-tropical-beach-scene.png
+
+[94/139]
+⬆️  Uploading: nighttime-market-cherry-blossoms-reflections.png (7120.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/nighttime-market-cherry-blossoms-reflections.png
+
+[95/139]
+⬆️  Uploading: people-picnicking-under-citrus-trees.png (6562.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/people-picnicking-under-citrus-trees.png
+
+[96/139]
+⬆️  Uploading: people-playing-in-the-snow.jpg (491.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/people-playing-in-the-snow.jpg
+
+[97/139]
+⬆️  Uploading: picnic-under-trees-reading-books.png (7323.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/picnic-under-trees-reading-books.png
+
+[98/139]
+⬆️  Uploading: picnic-with-friends-summer-vibes.png (5838.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/picnic-with-friends-summer-vibes.png
+
+[99/139]
+⬆️  Uploading: picnic-with-friends-vibrant-colors.png (7234.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/picnic-with-friends-vibrant-colors.png
+
+[100/139]
+⬆️  Uploading: pigeons-wearing-sunglasses-umbrella.png (7386.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/pigeons-wearing-sunglasses-umbrella.png
+
+[101/139]
+⬆️  Uploading: raccoons-roasting-marshmallows-beachside.png (8135.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/raccoons-roasting-marshmallows-beachside.png
+
+[102/139]
+⬆️  Uploading: raccoons-roasting-marshmallows-campfire.png (6641.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/raccoons-roasting-marshmallows-campfire.png
+
+[103/139]
+⬆️  Uploading: red-apples-on-tree-branches.jpg (591.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/red-apples-on-tree-branches.jpg
+
+[104/139]
+⬆️  Uploading: reindeer-and-owl-sharing-cocoa.jpg (343.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/reindeer-and-owl-sharing-cocoa.jpg
+
+[105/139]
+⬆️  Uploading: rubber-ducks-in-kiddie-pool.png (6981.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/rubber-ducks-in-kiddie-pool.png
+
+[106/139]
+⬆️  Uploading: rubber-ducks-wearing-sunglasses.png (7156.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/rubber-ducks-wearing-sunglasses.png
+
+[107/139]
+⬆️  Uploading: seaside-cafe-with-open-window.png (7130.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/seaside-cafe-with-open-window.png
+
+[108/139]
+⬆️  Uploading: skaters-under-twinkling-lights.jpg (508.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/skaters-under-twinkling-lights.jpg
+
+[109/139]
+⬆️  Uploading: sleeping-cat-by-stained-glass.jpg (452.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/sleeping-cat-by-stained-glass.jpg
+
+[110/139]
+⬆️  Uploading: snails-at-the-beach-sunbathing.png (7914.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snails-at-the-beach-sunbathing.png
+
+[111/139]
+⬆️  Uploading: snowy-cabin-in-forest.jpg (567.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-cabin-in-forest.jpg
+
+[112/139]
+⬆️  Uploading: snowy-cabin-in-woods.jpg (623.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-cabin-in-woods.jpg
+
+[113/139]
+⬆️  Uploading: snowy-cabin-with-cat.jpg (448.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-cabin-with-cat.jpg
+
+[114/139]
+⬆️  Uploading: snowy-cabin-with-mountain-backdrop.jpg (394.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-cabin-with-mountain-backdrop.jpg
+
+[115/139]
+⬆️  Uploading: snowy-cabins-with-cats.jpg (397.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-cabins-with-cats.jpg
+
+[116/139]
+⬆️  Uploading: snowy-village-festive-decorations.jpg (517.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-festive-decorations.jpg
+
+[117/139]
+⬆️  Uploading: snowy-village-in-mountains.jpg (548.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-in-mountains.jpg
+
+[118/139]
+⬆️  Uploading: snowy-village-scene-at-night.jpg (527.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-scene-at-night.jpg
+
+[119/139]
+⬆️  Uploading: snowy-village-with-bridge-scene.jpg (454.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-with-bridge-scene.jpg
+
+[120/139]
+⬆️  Uploading: snowy-village-with-christmas-lights.jpg (590.3KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-with-christmas-lights.jpg
+
+[121/139]
+⬆️  Uploading: snowy-village-with-festive-lights.jpg (534.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-with-festive-lights.jpg
+
+[122/139]
+⬆️  Uploading: snowy-village-with-glowing-windows.jpg (569.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-with-glowing-windows.jpg
+
+[123/139]
+⬆️  Uploading: snowy-village-with-lights.jpg (445.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/snowy-village-with-lights.jpg
+
+[124/139]
+⬆️  Uploading: stained-glass-cat-by-fire.jpg (349.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/stained-glass-cat-by-fire.jpg
+
+[125/139]
+⬆️  Uploading: stuffed-animals-in-snow.jpg (293.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/stuffed-animals-in-snow.jpg
+
+[126/139]
+⬆️  Uploading: sunny-seaside-cafe-pastel-colors.png (6702.6KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/sunny-seaside-cafe-pastel-colors.png
+
+[127/139]
+⬆️  Uploading: sunset-pier-with-neon-lights.png (6510.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/sunset-pier-with-neon-lights.png
+
+[128/139]
+⬆️  Uploading: three-kittens-among-apples.jpg (395.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/three-kittens-among-apples.jpg
+
+[129/139]
+⬆️  Uploading: vibrant-sunset-over-waterside.png (6679.8KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/vibrant-sunset-over-waterside.png
+
+[130/139]
+⬆️  Uploading: vibrant-whimsical-seaside-amusement-park.png (5746.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/vibrant-whimsical-seaside-amusement-park.png
+
+[131/139]
+⬆️  Uploading: victorian-dressed-cats-in-snow.jpg (501.1KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/victorian-dressed-cats-in-snow.jpg
+
+[132/139]
+⬆️  Uploading: werewolf-picking-red-apples.jpg (383.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/werewolf-picking-red-apples.jpg
+
+[133/139]
+⬆️  Uploading: whimsical-snowy-village-with-cats.jpg (592.9KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/whimsical-snowy-village-with-cats.jpg
+
+[134/139]
+⬆️  Uploading: white-cat-amid-yellow-flowers.png (7202.4KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/white-cat-amid-yellow-flowers.png
+
+[135/139]
+⬆️  Uploading: white-cat-near-ice-cream.png (6663.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/white-cat-near-ice-cream.png
+
+[136/139]
+⬆️  Uploading: white-cat-on-swing.png (7463.7KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/white-cat-on-swing.png
+
+[137/139]
+⬆️  Uploading: winter-scene-with-animals.jpg (390.0KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/winter-scene-with-animals.jpg
+
+[138/139]
+⬆️  Uploading: winter-scene-with-people-skating.jpg (477.5KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/winter-scene-with-people-skating.jpg
+
+[139/139]
+⬆️  Uploading: wolf-picking-fruit-from-tree.jpg (411.2KB)
+✅ Uploaded: https://pub-a0f86dca503044cda0278eb6bafbe7d9.r2.dev/wallpeypers/wolf-picking-fruit-from-tree.jpg
+
+
+📈 Upload Summary:
+✅ Successful: 139
+❌ Failed: 0
+📊 Total: 139
+
+🎉 Upload complete!
+
+💡 Next: Update data/wallpapers.json to point to R2 URLs
